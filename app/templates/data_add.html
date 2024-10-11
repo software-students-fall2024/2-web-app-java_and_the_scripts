@@ -1,13 +1,10 @@
-<nav>
-    <a href="/app/templates/base.html">Home</a>
-    <a href="/app/templates/data_add.html">Add New Task</a>
-    <a href="/app/templates/data_edit.html">Edit Task</a>
-    <a href="/app/templates/data_delete.html">Delete Task</a>
-    <a href="/app/templates/search.html">Search</a>
-    <a href="/app/templates/user_data_view.html">Display All Task</a>
-    <a href="/app/templates/tasker_data_view.html">Pending Task</a>
-</nav>
-
+<a href="{{ url_for('index') }}">Home</a>
+<a href="{{ url_for('add_task') }}">Add New Task</a>
+<a href="{{ url_for('edit_task') }}">Edit Task</a>
+<a href="{{ url_for('delete_task') }}">Delete Task</a>
+<a href="{{ url_for('display_tasks') }}">Display All Tasks</a>
+<a href="{{ url_for('pending_tasks') }}">Pending Tasks</a>
+<a href="{{ url_for('search_task') }}">Search</a>
 
 <h2>Add New Task</h2>
 <form method="POST" style="max-width: 600px; margin: auto;">
