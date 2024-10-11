@@ -15,6 +15,12 @@ def create_app():
     cxn = pymongo.MongoClient(os.getenv("MONGO_URI"))
     db = cxn[os.getenv("MONGO_DBNAME")]
     
+    try:
+        cxn.admin.command("ping")
+        print(" *", "Connected to MongoDB!")
+    except Exception as e:
+        print(" * MongoDB connection error:", e) 
+           
     # Home route
     @app.route('/')
     def index():
