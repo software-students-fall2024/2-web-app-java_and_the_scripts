@@ -53,33 +53,11 @@ def create_app():
         return render_template('data_add.html')
 
     # Route for editing a task
-    @app.route('/edit')
+    @app.route('/edit/<task_id>')
     def edit_task():
-        return render_template('data_edit.html')
-    
-    @app.route("/data_edit/<post_id>", methods=["POST"])
-    def edit_post(post_id):
-        """
-        Route for POST requests to the edit page.
-        Accepts the form submission data for the specified document and updates the document in the database.
-        Args:
-            post_id (str): The ID of the post to edit.
-        Returns:
-            redirect (Response): A redirect response to the home page.
-        """
-        name = request.form["fname"]
-        message = request.form["fmessage"]
+        task = db.tasks.find_one({"_id": ObjectId(task_id)})
+        return render_template("data_edit.html", task=task)
 
-        doc = {
-            "name": name,
-            "message": message,
-            "created_at": datetime.datetime.utcnow(),
-        }
-
-        db.messages.update_one({"_id": ObjectId(post_id)}, {"$set": doc})
-
-        return redirect('/')   
-    
     # Route for deleting a task
     @app.route('/delete', methods=['GET', 'POST'])
     def delete_task():
