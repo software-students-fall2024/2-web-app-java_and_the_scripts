@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 import pymongo
 from dotenv import load_dotenv
+
 load_dotenv()
 
 
@@ -11,7 +12,9 @@ def create_app():
     returns: app: the Flask application object
     """
     app=Flask(__name__)
-
+    cxn = pymongo.MongoClient(os.getenv("MONGO_URI"))
+    db = cxn[os.getenv("MONGO_DBNAME")]
+    
     # Home route
     @app.route('/')
     def index():
