@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 import pymongo
+import datetime
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -30,9 +31,21 @@ def create_app():
     @app.route('/add', methods=['GET', 'POST'])
     def add_task():
         title = request.form["title"]
-        category = request.form.get('category')
+        category = request.form.get['category']
         description = request.form["description"]
         deadline = request.form["deadline"]
+
+        task = {
+            "title": title,
+            "category": category,
+            "description": description,
+            "created_at": datetime.datetime.utcnow(),
+            "deadline": deadline,
+            "status" :'Not completed'
+
+        }
+        db.tasks.insert_one(task)
+        
         
         return render_template('data_add.html')
 
