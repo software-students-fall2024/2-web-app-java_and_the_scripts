@@ -41,7 +41,7 @@ def create_app():
             "description": description,
             "created_at": datetime.datetime.utcnow(),
             "deadline": deadline,
-            "status" :'Not completed'
+            "status" :"Not completed"
 
         }
         db.tasks.insert_one(task)
