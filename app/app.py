@@ -57,7 +57,32 @@ def create_app():
     def edit_task():
         task = db.tasks.find_one({"_id": ObjectId(task_id)})
         return render_template("data_edit.html", task=task)
+    @app.route("/edit/<task_id>", methods=["POST"])
+    def edit_submit(task_id):
+        """
+        Route for POST requests to the edit page.
+        Accepts the form submission data for the specified document and updates the document in the database.
+        Args:
+            post_id (str): The ID of the post to edit.
+        Returns:
+            redirect (Response): A redirect response to the home page.
+        """
+        title = request.form["title"]
+        category = request.form.get['category']
+        description = request.form["description"]
+        deadline = request.form["deadline"]
 
+        task = {
+            "title": title,
+            "category": category,
+            "description": description,
+            "deadline": deadline
+        }
+
+        db.tasks.update_one({"_id": ObjectId(task_id)}, {"$set": task})
+
+        return redirect("/")
+        
     # Route for deleting a task
     @app.route('/delete', methods=['GET', 'POST'])
     def delete_task():
