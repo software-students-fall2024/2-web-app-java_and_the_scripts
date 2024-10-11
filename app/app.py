@@ -50,12 +50,13 @@ def create_app():
             return redirect('/') #this redirects to the homepage after adding task
     
 
-    return render_template('data_add.html')
+        return render_template('data_add.html')
 
     # Route for editing a task
-    @app.route('/edit', methods=['GET', 'POST'])
+    @app.route('/edit/<task_id>')
     def edit_task():
-        return render_template('data_edit.html')
+        task = db.tasks.find_one({"_id": ObjectId(task_id)})
+        return render_template("data_edit.html", task=task)
 
     # Route for deleting a task
     @app.route('/delete', methods=['GET', 'POST'])
