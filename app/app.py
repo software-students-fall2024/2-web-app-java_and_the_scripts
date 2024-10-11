@@ -30,23 +30,24 @@ def create_app():
     # Route for adding a task
     @app.route('/add', methods=['GET', 'POST'])
     def add_task():
-        title = request.form["title"]
-        category = request.form.get['category']
-        description = request.form["description"]
-        deadline = request.form["deadline"]
+        if request.method == 'POST':
+            title = request.form["title"]
+            category = request.form.get['category']
+            description = request.form["description"]
+            deadline = request.form["deadline"]
 
-        task = {
-            "title": title,
-            "category": category,
-            "description": description,
-            "created_at": datetime.datetime.utcnow(),
-            "deadline": deadline,
-            "status" : "Not completed"
+            task = {
+                "title": title,
+                "category": category,
+                "description": description,
+                "created_at": datetime.datetime.utcnow(),
+                "deadline": deadline,
+                "status" : "Not completed"
 
-        }
-        
-        db.tasks.insert_one(task)
-        return redirect('/') #this redirects to the homepage after adding task
+            }
+            
+            db.tasks.insert_one(task)
+            return redirect('/') #this redirects to the homepage after adding task
     
 
     return render_template('data_add.html')
