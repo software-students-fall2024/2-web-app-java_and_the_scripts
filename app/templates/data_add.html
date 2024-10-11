@@ -1,25 +1,26 @@
-<nav>
-    <a href="{{ url_for('index') }}">Home</a>
-    <a href="{{ url_for('add_task') }}">Add New Task</a>
-    <a href="{{ url_for('edit_task') }}">Edit Task</a>
-    <a href="{{ url_for('delete_task') }}">Delete Task</a>
-    <a href="{{ url_for('display_tasks') }}">Display All Tasks</a>
-    <a href="{{ url_for('pending_tasks') }}">Pending Tasks</a>
-    <a href="{{ url_for('search_task') }}">Search</a>
+<!-- Navigation Bar for Mobile -->
+<nav style="background-color: #f4f4f4; padding: 5px; text-align: center;">
+    <a href="{{ url_for('index') }}" style="display: inline-block; padding: 4px 4px; margin: 2px; text-decoration: none; color: #333; background-color: #fff; border-radius: 3px; border: 1px solid #ddd; font-size: 10px;">Home</a>
+    <a href="{{ url_for('add_task') }}" style="display: inline-block; padding: 4px 4px; margin: 2px; text-decoration: none; color: #333; background-color: #fff; border-radius: 3px; border: 1px solid #ddd; font-size: 10px;">Add</a>
+    <a href="{{ url_for('edit_task') }}" style="display: inline-block; padding: 4px 4px; margin: 2px; text-decoration: none; color: #333; background-color: #fff; border-radius: 3px; border: 1px solid #ddd; font-size: 10px;">Edit</a>
+    <a href="{{ url_for('delete_task') }}" style="display: inline-block; padding: 4px 4px; margin: 2px; text-decoration: none; color: #333; background-color: #fff; border-radius: 3px; border: 1px solid #ddd; font-size: 10px;">Delete</a>
+    <a href="{{ url_for('display_tasks') }}" style="display: inline-block; padding: 4px 4px; margin: 2px; text-decoration: none; color: #333; background-color: #fff; border-radius: 3px; border: 1px solid #ddd; font-size: 10px;">All Tasks</a>
+    <a href="{{ url_for('pending_tasks') }}" style="display: inline-block; padding: 4px 4px; margin: 2px; text-decoration: none; color: #333; background-color: #fff; border-radius: 3px; border: 1px solid #ddd; font-size: 10px;">Pending</a>
+    <a href="{{ url_for('search_task') }}" style="display: inline-block; padding: 4px 4px; margin: 2px; text-decoration: none; color: #333; background-color: #fff; border-radius: 3px; border: 1px solid #ddd; font-size: 10px;">Search</a>
 </nav>
 
-<h2>Add New Task</h2>
-<form method="POST" style="max-width: 600px; margin: auto;">
+<h2 style="text-align: center; font-size: 14px;">Add New Task</h2>
+<form method="POST" style="max-width: 40%; padding: 5px; margin: auto;">
     <!-- Task Title -->
-    <div style="margin-bottom: 15px;">
-        <label for="title" style="display: block; margin-bottom: 5px;">Task Title:</label>
-        <input type="text" id="title" name="title" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+    <div style="text-align: center; margin-bottom: 8px;">
+        <label for="title" style="display: block; margin-bottom: 3px; font-size: 10px;">Task Title:</label>
+        <input type="text" id="title" name="title" required style="width: 40%; padding: 4px; font-size: 10px; border: 1px solid #ccc; border-radius: 3px;">
     </div>
 
     <!-- Task Category Dropdown -->
-    <div style="margin-bottom: 15px;">
-        <label for="category" style="display: block; margin-bottom: 5px;">Task Category:</label>
-        <select id="category" name="category" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+    <div style="text-align: center; margin-bottom: 8px;">
+        <label for="category" style="display: block; margin-bottom: 3px; font-size: 10px;">Task Category:</label>
+        <select id="category" name="category" required style="width: 40%; padding: 4px; font-size: 10px; border: 1px solid #ccc; border-radius: 3px;">
             <option value="Cleaning">Cleaning</option>
             <option value="Laundry">Laundry</option>
             <option value="Grocery">Grocery</option>
@@ -29,27 +30,27 @@
     </div>
 
     <!-- Task Description -->
-    <div style="margin-bottom: 15px;">
-        <label for="description" style="display: block; margin-bottom: 5px;">Description:</label>
-        <textarea id="description" name="description" rows="4" cols="50" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+    <div style="text-align: center; margin-bottom: 8px;">
+        <label for="description" style="display: block; margin-bottom: 3px; font-size: 10px;">Description:</label>
+        <textarea id="description" name="description" rows="3" required style="width: 40%; padding: 4px; font-size: 10px; border: 1px solid #ccc; border-radius: 3px;"></textarea>
     </div>
 
     <!-- Day Posted (Date) -->
-    <div style="margin-bottom: 15px;">
-        <label for="day_posted" style="display: block; margin-bottom: 5px;">Day Posted:</label>
-        <input type="date" id="day_posted" name="day_posted" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+    <div style="text-align: center; margin-bottom: 8px;">
+        <label for="day_posted" style="display: block; margin-bottom: 3px; font-size: 10px;">Day Posted:</label>
+        <input type="date" id="day_posted" name="day_posted" required style="width: 40%; padding: 4px; font-size: 10px; border: 1px solid #ccc; border-radius: 3px;">
     </div>
 
     <!-- Deadline Date (Date) -->
-    <div style="margin-bottom: 15px;">
-        <label for="deadline" style="display: block; margin-bottom: 5px;">Deadline:</label>
-        <input type="date" id="deadline" name="deadline" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+    <div style="text-align: center; margin-bottom: 8px;">
+        <label for="deadline" style="display: block; margin-bottom: 3px; font-size: 10px;">Deadline:</label>
+        <input type="date" id="deadline" name="deadline" required style="width: 40%; padding: 4px; font-size: 10px; border: 1px solid #ccc; border-radius: 3px;">
     </div>
 
     <!-- Status Dropdown -->
-    <div style="margin-bottom: 15px;">
-        <label for="status" style="display: block; margin-bottom: 5px;">Status:</label>
-        <select id="status" name="status" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+    <div style="text-align: center; margin-bottom: 8px;">
+        <label for="status" style="display: block; margin-bottom: 3px; font-size: 10px;">Status:</label>
+        <select id="status" name="status" required style="width: 40%; padding: 4px; font-size: 10px; border: 1px solid #ccc; border-radius: 3px;">
             <option value="Not Completed">Not Completed</option>
             <option value="Completed">Completed</option>
         </select>
@@ -57,7 +58,7 @@
 
     <!-- Submit Button -->
     <div style="text-align: center;">
-        <button type="submit" style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">
+        <button type="submit" style="padding: 6px 12px; background-color: #4CAF50; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 10px;">
             Add Task
         </button>
     </div>
