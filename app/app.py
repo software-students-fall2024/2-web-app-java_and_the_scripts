@@ -41,13 +41,15 @@ def create_app():
             "description": description,
             "created_at": datetime.datetime.utcnow(),
             "deadline": deadline,
-            "status" :'Not completed'
+            "status" : "Not completed"
 
         }
+        
         db.tasks.insert_one(task)
-        
-        
-        return render_template('data_add.html')
+        return redirect('/') #this redirects to the homepage after adding task
+    
+
+    return render_template('data_add.html')
 
     # Route for editing a task
     @app.route('/edit', methods=['GET', 'POST'])
