@@ -1,7 +1,33 @@
-<a href="{{ url_for('index') }}">Home</a>
-<a href="{{ url_for('add_task') }}">Add New Task</a>
-<a href="{{ url_for('edit_task') }}">Edit Task</a>
-<a href="{{ url_for('delete_task') }}">Delete Task</a>
-<a href="{{ url_for('display_tasks') }}">Display All Tasks</a>
-<a href="{{ url_for('pending_tasks') }}">Pending Tasks</a>
-<a href="{{ url_for('search_task') }}">Search</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Task Manager{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1>Task Manager Homepage</h1>
+        <nav>
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('add_task') }}">Add New Task</a>
+            <a href="{{ url_for('edit_task') }}">Edit Task</a>
+            <a href="{{ url_for('delete_task') }}">Delete Task</a>
+            <a href="{{ url_for('display_tasks') }}">Display All Tasks</a>
+            <a href="{{ url_for('pending_tasks') }}">Pending Tasks</a>
+            <a href="{{ url_for('search_task') }}">Search</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>
+            Welcome to our task manager mobile web app! Use the navigation bar above to add, edit, delete, search, and view all yours tasks. Thanks!
+        </h2>
+
+    </main>
+
+    <footer>
+        <p>&copy; Java and the Scripts, 2024</p>
+    </footer>
+</body>
+</html>

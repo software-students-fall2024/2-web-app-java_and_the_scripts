@@ -1,35 +1,41 @@
-from flask import render_template
-from app import app
+from flask import Flask, render_template
 
-from flask import render_template
-from app import app
+app = Flask(__name__)
 
+# Home route
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+# Route for adding a task
 @app.route('/add', methods=['GET', 'POST'])
 def add_task():
-    # Your logic for adding a task
     return render_template('data_add.html')
 
+# Route for editing a task
 @app.route('/edit', methods=['GET', 'POST'])
 def edit_task():
-    # Your logic for editing a task
     return render_template('data_edit.html')
 
+# Route for deleting a task
 @app.route('/delete', methods=['GET', 'POST'])
 def delete_task():
-    # Your logic for deleting a task
     return render_template('data_delete.html')
 
+# Route for displaying all tasks
 @app.route('/display', methods=['GET', 'POST'])
 def display_tasks():
-    # Your logic for displaying all tasks
     return render_template('display_all.html')
 
+# Route for displaying pending tasks
 @app.route('/pending', methods=['GET', 'POST'])
 def pending_tasks():
-    # Your logic for displaying pending tasks
     return render_template('pending.html')
 
+# Route for searching tasks
 @app.route('/search', methods=['GET', 'POST'])
 def search_task():
-    # Your logic for searching tasks
     return render_template('search.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)
