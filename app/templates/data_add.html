@@ -1,9 +1,65 @@
-<nav>
-    <a href="/app/templates/base.html">Home</a>
-    <a href="/app/templates/data_add.html">Add New Task</a>
-    <a href="/app/templates/data_edit.html">Edit Task</a>
-    <a href="/app/templates/data_delete.html">Delete Task</a>
-    <a href="/app/templates/search.html">Search</a>
-    <a href="/app/templates/user_data_view.html">Display All Task</a>
-    <a href="/app/templates/tasker_data_view.html">Pending Task</a>
+<nav style="background-color: #5f5e5e; padding: 10px; text-align: center;">
+    <a href="/app/templates/base.html" style="color: white; text-decoration: none; margin: 0 15px;">Home</a>
+    <a href="/app/templates/data_add.html" style="color: white; text-decoration: none; margin: 0 15px;">Add New Task</a>
+    <a href="/app/templates/data_edit.html" style="color: white; text-decoration: none; margin: 0 15px;">Edit Task</a>
+    <a href="/app/templates/data_delete.html" style="color: white; text-decoration: none; margin: 0 15px;">Delete Task</a>
+    <a href="/app/templates/search.html" style="color: white; text-decoration: none; margin: 0 15px;">Search</a>
+    <a href="/app/templates/user_data_view.html" style="color: white; text-decoration: none; margin: 0 15px;">Display All Tasks</a>
+    <a href="/app/templates/tasker_data_view.html" style="color: white; text-decoration: none; margin: 0 15px;">Pending Tasks</a>
 </nav>
+
+
+<h2>Add New Task</h2>
+<form method="POST" style="max-width: 600px; margin: auto;">
+    <!-- Task Title -->
+    <div style="margin-bottom: 15px;">
+        <label for="title" style="display: block; margin-bottom: 5px;">Task Title:</label>
+        <input type="text" id="title" name="title" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <!-- Task Category Dropdown -->
+    <div style="margin-bottom: 15px;">
+        <label for="category" style="display: block; margin-bottom: 5px;">Task Category:</label>
+        <select id="category" name="category" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+            <option value="Cleaning">Cleaning</option>
+            <option value="Laundry">Laundry</option>
+            <option value="Grocery">Grocery</option>
+            <option value="Work">Work</option>
+            <option value="Personal">Personal</option>
+        </select>
+    </div>
+
+    <!-- Task Description -->
+    <div style="margin-bottom: 15px;">
+        <label for="description" style="display: block; margin-bottom: 5px;">Description:</label>
+        <textarea id="description" name="description" rows="4" cols="50" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+    </div>
+
+    <!-- Day Posted (Date) -->
+    <div style="margin-bottom: 15px;">
+        <label for="day_posted" style="display: block; margin-bottom: 5px;">Day Posted:</label>
+        <input type="date" id="day_posted" name="day_posted" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <!-- Deadline Date (Date) -->
+    <div style="margin-bottom: 15px;">
+        <label for="deadline" style="display: block; margin-bottom: 5px;">Deadline:</label>
+        <input type="date" id="deadline" name="deadline" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <!-- Status Dropdown -->
+    <div style="margin-bottom: 15px;">
+        <label for="status" style="display: block; margin-bottom: 5px;">Status:</label>
+        <select id="status" name="status" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+            <option value="Not Completed">Not Completed</option>
+            <option value="Completed">Completed</option>
+        </select>
+    </div>
+
+    <!-- Submit Button -->
+    <div style="text-align: center;">
+        <button type="submit" style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">
+            Add Task
+        </button>
+    </div>
+</form>
