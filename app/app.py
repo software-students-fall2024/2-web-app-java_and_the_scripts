@@ -29,6 +29,7 @@ def create_app():
     # Route for adding a task
     @app.route('/add', methods=['GET', 'POST'])
     def add_task():
+        selected_option = request.form.get('category')
         return render_template('data_add.html')
 
     # Route for editing a task
