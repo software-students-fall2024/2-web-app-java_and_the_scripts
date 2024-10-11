@@ -47,7 +47,6 @@ def create_app():
         db.tasks.insert_one(task)
         
         
-        return render_template('data_add.html')
 
     # Route for editing a task
     @app.route('/edit', methods=['GET', 'POST'])
