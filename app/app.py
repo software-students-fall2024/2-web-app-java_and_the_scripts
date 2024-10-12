@@ -102,16 +102,35 @@ def create_app():
         completed_tasks = list(db.tasks.find({"status": "Completed"}))
         return render_template('display_all.html', pending_tasks = pending_tasks, completed_tasks = completed_tasks)
         #tasks = tasks means that it's passing data from the backend to the frontend html template
-
+        #remember to modify html to use tasks
+    
+    #we don't think this is needed
     # Route for displaying pending tasks
     #@app.route('/pending', methods=['GET', 'POST'])
     #def pending_tasks():
     #    return render_template('pending.html')
 
-    # Route for searching tasks
+    # Route for searching tasks by title and category
     @app.route('/search', methods=['GET', 'POST'])
     def search_task():
-        return render_template('search.html')
+        tasks = []
+        if request.method = 'POST':
+            title = request.form.get('title')
+            category = request.form.get('category')
+
+            query = {}
+            if title:
+                #this builds the critia we need to use for .find
+                #regex means regular expression
+                #options: i  is a flag that will make the search case-insensitive
+                if title:
+                    query["title"] = {"$regex:" title, "$options": i}
+                if category:
+                    query["category"] = {"$regex": category, "$options": i}
+                
+                tasks = list(db.tasks.find(query))
+
+        return render_template('search.html', tasks = tasks) #remember to modify html to use tasks
     return app
 
 if __name__ == '__main__':
