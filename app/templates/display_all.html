@@ -1,3 +1,40 @@
+<!DOCTYPE html>
+<html lang ="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Task Log</title>
+    <style>
+        .task-section {
+            width: 80%;
+            margin: 10px auto;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: #ddd;
+            margin: 20px 0;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 8px 0;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
 <nav style="background-color: #f4f4f4; padding: 5px; text-align: center;">
     <a href="{{ url_for('index') }}" style="display: inline-block; padding: 4px 4px; margin: 2px; text-decoration: none; color: #333; background-color: #fff; border-radius: 3px; border: 1px solid #ddd; font-size: 10px;">Home</a>
     <a href="{{ url_for('add_task') }}" style="display: inline-block; padding: 4px 4px; margin: 2px; text-decoration: none; color: #333; background-color: #fff; border-radius: 3px; border: 1px solid #ddd; font-size: 10px;">Add</a>
@@ -7,3 +44,24 @@
     <a href="{{ url_for('pending_tasks') }}" style="display: inline-block; padding: 4px 4px; margin: 2px; text-decoration: none; color: #333; background-color: #fff; border-radius: 3px; border: 1px solid #ddd; font-size: 10px;">Pending</a>
     <a href="{{ url_for('search_task') }}" style="display: inline-block; padding: 4px 4px; margin: 2px; text-decoration: none; color: #333; background-color: #fff; border-radius: 3px; border: 1px solid #ddd; font-size: 10px;">Search</a>
 </nav>
+
+    <div class="task-section">
+        <h2>Completed Tasks</h2>
+        <ul>
+                <li>    <!-- Add stuff from database  --> </li>
+                <li>    <!-- Add stuff from database  --> </li>
+        </ul>
+    </div>
+
+<hr>
+
+<div class="task-section">
+    <h2>Pending Tasks</h2>
+    <ul>
+            <li>    <!-- Add stuff from database  --> </li>
+            <li>    <!-- Add stuff from database  --> </li>
+    </ul>
+</div>
+
+</body>
+</html>
