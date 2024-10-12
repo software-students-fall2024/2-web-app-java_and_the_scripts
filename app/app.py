@@ -100,7 +100,9 @@ def create_app():
     # Route for displaying all tasks
     @app.route('/display', methods=['GET', 'POST'])
     def display_tasks():
-        return render_template('display_all.html')
+        tasks = list(db.tasks.find())
+        return render_template('display_all.html', tasks = tasks)
+        #tasks = tasks means that it's passing data from the backend to the frontend html template
 
     # Route for displaying pending tasks
     #@app.route('/pending', methods=['GET', 'POST'])
