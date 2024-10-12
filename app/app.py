@@ -84,8 +84,17 @@ def create_app():
         return redirect("/")
         
     # Route for deleting a task
-    @app.route('/delete', methods=['GET', 'POST'])
-    def delete_task():
+    @app.route("/delete/<task_id>")
+    def delete_task(task_id):
+        db.tasks.delete_one({"_id": ObjectId(task_id)})
+        return redirect("/")
+
+    @app.route("/delete-by-many", methods=["GET","POST"])
+    def delete_by_many():
+        if request.method == 'POST':
+            title = request.form["title"]
+            category = request.form.get['category']
+            db.tasks.delete_many({"title": title, "category": category})
         return render_template('data_delete.html')
 
     # Route for displaying all tasks
