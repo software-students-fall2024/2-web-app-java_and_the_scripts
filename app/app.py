@@ -120,7 +120,7 @@ def create_app():
 
             query = {}
             if title:
-                #this builds the critia we need to use for .find
+                #this builds the critria we need to use for .find
                 #regex means regular expression
                 #options: i  is a flag that will make the search case-insensitive
                 if title:
