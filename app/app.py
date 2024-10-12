@@ -5,8 +5,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-
-
 def create_app():
     """
     Create and configure the Flask application.
@@ -100,8 +98,9 @@ def create_app():
     # Route for displaying all tasks
     @app.route('/display', methods=['GET', 'POST'])
     def display_tasks():
-        tasks = list(db.tasks.find())
-        return render_template('display_all.html', tasks = tasks)
+        pending_tasks = list(db.tasks.find({"status": "Not completed"}))
+        completed_tasks = list(db.tasks.find({"status": "Completed"}))
+        return render_template('display_all.html', pending_tasks = pending_tasks, completed_tasks = completed_tasks)
         #tasks = tasks means that it's passing data from the backend to the frontend html template
 
     # Route for displaying pending tasks
