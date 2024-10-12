@@ -57,8 +57,6 @@ def create_app():
     def edit_task():
         task = db.tasks.find_one({"_id": ObjectId(task_id)})
         return render_template("data_edit.html", task=task)
-    
-    
     @app.route("/edit/<task_id>", methods=["POST"])
     def edit_submit(task_id):
         """
@@ -86,8 +84,17 @@ def create_app():
         return redirect("/")
         
     # Route for deleting a task
-    @app.route('/delete', methods=['GET', 'POST'])
-    def delete_task():
+    @app.route("/delete/<task_id>")
+    def delete_task(task_id):
+        db.tasks.delete_one({"_id": ObjectId(task_id)})
+        return redirect("/")
+
+    @app.route("/delete-by-many", methods=["GET","POST"])
+    def delete_by_many():
+        if request.method == 'POST':
+            title = request.form["title"]
+            category = request.form.get['category']
+            db.tasks.delete_many({"title": title, "category": category})
         return render_template('data_delete.html')
 
     # Route for displaying all tasks
@@ -96,9 +103,9 @@ def create_app():
         return render_template('display_all.html')
 
     # Route for displaying pending tasks
-    @app.route('/pending', methods=['GET', 'POST'])
-    def pending_tasks():
-        return render_template('pending.html')
+    #@app.route('/pending', methods=['GET', 'POST'])
+    #def pending_tasks():
+    #    return render_template('pending.html')
 
     # Route for searching tasks
     @app.route('/search', methods=['GET', 'POST'])
@@ -107,5 +114,6 @@ def create_app():
     return app
 
 if __name__ == '__main__':
+    FLASK_PORT = os.getenv("FLASK_PORT", "11000")
     app = create_app()
     app.run(debug=True)
