@@ -94,9 +94,9 @@ def create_app():
         return render_template('display_all.html')
 
     # Route for displaying pending tasks
-    @app.route('/pending', methods=['GET', 'POST'])
-    def pending_tasks():
-        return render_template('pending.html')
+    #@app.route('/pending', methods=['GET', 'POST'])
+    #def pending_tasks():
+    #    return render_template('pending.html')
 
     # Route for searching tasks
     @app.route('/search', methods=['GET', 'POST'])
