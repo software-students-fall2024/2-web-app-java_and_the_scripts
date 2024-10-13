@@ -114,7 +114,7 @@ def create_app():
     @app.route('/search', methods=['GET', 'POST'])
     def search_task():
         tasks = []
-        if request.method = 'POST':
+        if request.method == 'POST':
             title = request.form.get('title')
             category = request.form.get('category')
 
