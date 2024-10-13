@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 import pymongo
 import datetime
+import os
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -114,7 +115,7 @@ def create_app():
     @app.route('/search', methods=['GET', 'POST'])
     def search_task():
         tasks = []
-        if request.method = 'POST':
+        if request.method == 'POST':
             title = request.form.get('title')
             category = request.form.get('category')
 
@@ -124,7 +125,7 @@ def create_app():
                 #regex means regular expression
                 #options: i  is a flag that will make the search case-insensitive
                 if title:
-                    query["title"] = {"$regex:" title, "$options": i}
+                    query["title"] = {"$regex" : title, "$options": i}
                 if category:
                     query["category"] = {"$regex": category, "$options": i}
                 
