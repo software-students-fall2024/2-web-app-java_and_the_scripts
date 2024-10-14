@@ -4,6 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Task Manager{% endblock %}</title>
+    <style>
+
+        main {
+            margin: 20px auto;
+            max-width: 600px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 10px 0;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .task-title {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .task-details {
+            font-size: 14px;
+            color: #555;
+            margin-top: 5px;
+        }
+
+        .task-links a {
+            margin-right: 10px;
+            text-decoration: none;
+        }
+
+        .task-links a.delete {
+            color: red;
+        }
+        </style>
 </head>
 <body>
     <header>
@@ -16,15 +57,37 @@
         </nav>
     </header>
     
-    {% for task in tasks %}
-    {#  <a href="{{ url_for('edit_task', task_id=task._id) }}" style="display: inline-block; padding: 4px 4px; margin: 2px; text-decoration: none; color: #333; background-color: #fff; border-radius: 3px; border: 1px solid #ddd; font-size: 10px;">Edit</a>
-        <a href="{{ url_for('delete_task', task_id=task._id) }}" style="display: inline-block; padding: 4px 4px; margin: 2px; text-decoration: none; color: #333; background-color: #fff; border-radius: 3px; border: 1px solid #ddd; font-size: 10px;">Delete</a>
-        #}
-         {% endfor %}
     <main>
-        <h2 style="text-align: center; font-size: 14px;">Welcome to our task manager mobile web app! </h2>
-        <h2 style="text-align: center; font-size: 14px;">Use the navigation bar above to add, edit, delete, search, and view all yours tasks. Thanks!</h2>
-        <h2 style="text-align: center; font-size: 14px;">Thanks!</h2>
+        <h2 style="text-align: center; font-size: 18px; margin-bottom: 10px;">
+            Welcome to Your Personal Task Manager!
+        </h2>
+        <p style="text-align: center; font-size: 14px; color: #666; margin-bottom: 20px;">
+            Stay organized and on top of your to-do list with ease. Use the navigation bar above to add, edit, delete, search, 
+            and view your tasks. Whether it's work, personal goals, or daily chores, manage everything efficiently in one place.
+        </p>
+    
+        <h3 style="text-align: center; margin-top: 30px; font-size: 16px;">Current Tasks</h3>
+        
+        <ul>
+            {% if tasks %}
+                {% for task in tasks %}
+                    <li>
+                        <div class="task-title">{{ task.title }} - {{ task.category }}</div>
+                        <div class="task-details">{{ task.description }}</div>
+                        <div class="task-details">
+                            <strong>Posted on:</strong> {{ task.created_at }} | 
+                            <strong>Deadline:</strong> {{ task.deadline }}
+                        </div>
+                        <div class="task-links">
+                            <a href="{{ url_for('edit_task', task_id=task['_id']) }}">Edit</a>
+                            <a href="{{ url_for('delete_task', task_id=task['_id']) }}" class="delete">Delete</a>
+                        </div>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <li style="text-align: center;">No current tasks available. Add a new task!</li>
+            {% endif %}
+        </ul>
     </main>
 
     <footer>
