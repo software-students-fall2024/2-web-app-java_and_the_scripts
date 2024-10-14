@@ -87,11 +87,19 @@
     </nav>
     <header>
 
-    <h2 style="text-align: center;">Search Task by Title and Category</h2>
+    <h2 style="text-align: center;">Search Task by Title or Category</h2>
 
     <form method="POST" action="/search">
         <input type="text" name="title" placeholder="Enter task title">
-        <input type="text" name="category" placeholder="Enter task category">
+        <select name="category">
+            <option value="">-- Select a category --</option>
+            <option value="Cleaning">Cleaning</option>
+            <option value="Laundry">Laundry</option>
+            <option value="Grocery">Grocery</option>
+            <option value="Work">Work</option>
+            <option value="Personal">Personal</option>
+        </select>
+
         <button type="submit">Search</button>
     </form>
 

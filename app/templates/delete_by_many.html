@@ -37,12 +37,29 @@
 
     <h2 style="text-align: center;">Delete Tasks by Category</h2>
 
-    <form method="POST" action="/delete-by-many">
-        <input type="text" name="category" placeholder="Enter task category" required>
-        <button type="submit">Delete All Tasks in Category</button>
+    <form method="POST" action="/delete_by_many">
+        <input type="text" name="title" placeholder="Enter task title">
+        <select name="category">
+            <option value="">-- Select a category --</option>
+            <option value="Cleaning">Cleaning</option>
+            <option value="Laundry">Laundry</option>
+            <option value="Grocery">Grocery</option>
+            <option value="Work">Work</option>
+            <option value="Personal">Personal</option>
+        </select>
+
+        <button type="submit">Search</button>
     </form>
+    
 
     <hr>
+<<<<<<< HEAD
 
+=======
+    
+    <h2 style="text-align: center;">Delete Results</h2>
+    <!-- If you want to display some results or confirmation message after deletion -->
+     <p></p>
+>>>>>>> a6f05c056a76769d652e56364659c29451f69a01
 </body>
 </html>
