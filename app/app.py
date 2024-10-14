@@ -53,41 +53,47 @@ def create_app():
         return render_template('data_add.html')
 
     # Route for editing a task
-    @app.route('/edit/<task_id>')
+    @app.route('/edit/<task_id>', methods=['GET', 'POST'])
     def edit_task(task_id):
-        task = db.tasks.find_one({"_id": ObjectId(task_id)})
-        return render_template("data_edit.html", task=task)
-    @app.route("/edit/<task_id>", methods=["POST"])
-    def edit_submit(task_id):
-        """
-        Route for POST requests to the edit page.
-        Accepts the form submission data for the specified document and updates the document in the database.
-        Args:
-            post_id (str): The ID of the post to edit.
-        Returns:
-            redirect (Response): A redirect response to the home page.
-        """
-        title = request.form["title"]
-        category = request.form.get('category')
-        description = request.form["description"]
-        deadline = request.form["deadline"]
+        if request.method == 'POST':
+            redirect_to = request.args.get("redirect_to")
+            
+            # Handle POST request to update the task
+            title = request.form["title"]
+            category = request.form.get('category')
+            description = request.form["description"]
+            deadline = request.form["deadline"]
 
-        task = {
-            "title": title,
-            "category": category,
-            "description": description,
-            "deadline": deadline
-        }
+            task = {
+                "title": title,
+                "category": category,
+                "description": description,
+                "deadline": deadline
+            }
 
-        db.tasks.update_one({"_id": ObjectId(task_id)}, {"$set": task})
+            db.tasks.update_one({"_id": ObjectId(task_id)}, {"$set": task})
 
-        return redirect("/")
+            # Redirect  after updating the task
+            if redirect_to == "display":
+                return redirect("/display")
+            else:
+                return redirect("/")
+
+        else:
+            # Handle GET request to display the edit form
+            task = db.tasks.find_one({"_id": ObjectId(task_id)})
+            return render_template("data_edit.html", task=task)
+   
         
     # Route for deleting a task
     @app.route("/delete/<task_id>")
     def delete_task(task_id):
+        redirect_to = request.args.get("redirect_to")
         db.tasks.delete_one({"_id": ObjectId(task_id)})
-        return redirect("/")
+        if redirect_to == "display":
+            return redirect("/display")
+        else:
+            return redirect("/")
 
     @app.route("/delete-by-many", methods=["GET","POST"])
     def delete_by_many():
@@ -96,12 +102,30 @@ def create_app():
             category = request.form.get['category']
             db.tasks.delete_many({"title": title, "category": category})
         return render_template('data_delete.html')
-
+    
+    # Route for deleting a task
+    @app.route("/complete/<task_id>")
+    def complete_task(task_id):
+        redirect_to = request.args.get("redirect_to")
+        db.tasks.update_one(
+            {"_id": ObjectId(task_id)},
+            {
+                "$set": {
+                    "status": "Completed",
+                    "completed_at": datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M')  # Optionally track the completion time
+                }
+            }
+         )
+        if redirect_to == "display":
+            return redirect("/display")
+        else:
+            return redirect("/")
+    
     # Route for displaying all tasks
     @app.route('/display', methods=['GET', 'POST'])
     def display_tasks():
-        pending_tasks = list(db.tasks.find({"status": "Not completed"}))
-        completed_tasks = list(db.tasks.find({"status": "Completed"}))
+        pending_tasks = list(db.tasks.find({"status": "Not completed"}).sort("deadline", pymongo.ASCENDING))
+        completed_tasks = list(db.tasks.find({"status": "Completed"}).sort("completed_at", pymongo.DESCENDING))
         return render_template('display_all.html', pending_tasks = pending_tasks, completed_tasks = completed_tasks)
         #tasks = tasks means that it's passing data from the backend to the frontend html template
         #remember to modify html to use tasks

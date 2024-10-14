@@ -1,17 +1,45 @@
+<h2 style="text-align: center; font-size: 20px;">Task Manager</h2>
 <nav style="background-color: #f4f4f4; padding: 5px; text-align: center;">
     <a href="{{ url_for('index') }}" style="display: inline-block; padding: 4px 4px; margin: 2px; text-decoration: none; color: #333; background-color: #fff; border-radius: 3px; border: 1px solid #ddd; font-size: 10px;">Home</a>
     <a href="{{ url_for('add_task') }}" style="display: inline-block; padding: 4px 4px; margin: 2px; text-decoration: none; color: #333; background-color: #fff; border-radius: 3px; border: 1px solid #ddd; font-size: 10px;">Add</a>
     <a href="{{ url_for('display_tasks') }}" style="display: inline-block; padding: 4px 4px; margin: 2px; text-decoration: none; color: #333; background-color: #fff; border-radius: 3px; border: 1px solid #ddd; font-size: 10px;">All Tasks</a>
     <a href="{{ url_for('search_task') }}" style="display: inline-block; padding: 4px 4px; margin: 2px; text-decoration: none; color: #333; background-color: #fff; border-radius: 3px; border: 1px solid #ddd; font-size: 10px;">Search</a>
 </nav>
-{% block container %}
-<h2>Update</h2>
-<p>Edit a record in the MongoDB database collection.</p>
-<form method="POST" action="{{ url_for('edit_submit', task_id=task['_id']) }}">
-    <input type="text" id="fname" name="title" value="{{ task['title'] }}" placeholder="Task title" />
-    <br />
-    <textarea id="fmessage" name="description" placeholder="Description">{{ task['description'] }}</textarea>
-    <br />
-    <input type="submit" value="Save" />
+
+<h2 style="text-align: center; font-size: 14px;">Edit Task</h2>
+<form method="POST" style="max-width: 40%; padding: 5px; margin: auto;">
+    <!-- Task Title -->
+    <div style="text-align: center; margin-bottom: 8px;">
+        <label for="title" style="display: block; margin-bottom: 3px; font-size: 10px;">Task Title:</label>
+        <input type="text" id="title" name="title" value="{{ task['title'] }}" required style="width: 40%; padding: 4px; font-size: 10px; border: 1px solid #ccc; border-radius: 3px;">
+    </div>
+
+    <!-- Task Category Dropdown -->
+    <div style="text-align: center; margin-bottom: 8px;">
+        <label for="category" style="display: block; margin-bottom: 3px; font-size: 10px;">Task Category:</label>
+        <select id="category" name="category" required style="width: 40%; padding: 4px; font-size: 10px; border: 1px solid #ccc; border-radius: 3px;">
+            <option value="Cleaning" {% if task['category'] == 'Cleaning' %}selected{% endif %}>Cleaning</option>
+            <option value="Laundry" {% if task['category'] == 'Laundry' %}selected{% endif %}>Laundry</option>
+            <option value="Grocery" {% if task['category'] == 'Grocery' %}selected{% endif %}>Grocery</option>
+            <option value="Work" {% if task['category'] == 'Work' %}selected{% endif %}>Work</option>
+            <option value="Personal" {% if task['category'] == 'Personal' %}selected{% endif %}>Personal</option>
+        </select>
+    </div>
+
+    <!-- Task Description -->
+    <div style="text-align: center; margin-bottom: 8px;">
+        <label for="description" style="display: block; margin-bottom: 3px; font-size: 10px;">Description:</label>
+        <textarea id="description" name="description" rows="3" style="width: 40%; padding: 4px; font-size: 10px; border: 1px solid #ccc; border-radius: 3px;" required>{{ task['description'] }}</textarea>
+    </div>
+
+    <div style="text-align: center; margin-bottom: 8px;">
+        <label for="deadline" style="display: block; margin-bottom: 3px; font-size: 10px;">Deadline:</label>
+        <input type="date" id="deadline" name="deadline" value="{{ task['deadline'] }}" required style="width: 40%; padding: 4px; font-size: 10px; border: 1px solid #ccc; border-radius: 3px;">
+    </div>
+
+    <div style="text-align: center;">
+        <button type="submit" style="padding: 6px 12px; background-color: #4CAF50; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 10px;">
+            Edit Task
+        </button>
+    </div>
 </form>
-{% endblock %}
