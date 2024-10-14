@@ -95,13 +95,23 @@ def create_app():
         else:
             return redirect("/")
 
-    @app.route("/delete-by-many", methods=["GET","POST"])
+    @app.route('/delete_by_many', methods=['GET', 'POST'])
     def delete_by_many():
+        message = ""
         if request.method == 'POST':
-            title = request.form["title"]
-            category = request.form.get['category']
-            db.tasks.delete_many({"title": title, "category": category})
-        return render_template('delele_by_many.html')
+            category = request.form.get('category')
+            # Check how many tasks match the category
+            tasks_to_delete = db.tasks.count_documents({"category": category})
+            
+            if tasks_to_delete > 0:
+                # If there are matching tasks, delete them and set success message
+                db.tasks.delete_many({"category": category})
+                message = f"{tasks_to_delete} tasks in the '{category}' category were successfully deleted."
+            else:
+                # If no matching tasks, set a different message
+                message = f"No tasks found in the '{category}' category to delete."
+        
+        return render_template('delete_by_many.html', message=message)
     
     # Route for deleting a task
     @app.route("/complete/<task_id>")
