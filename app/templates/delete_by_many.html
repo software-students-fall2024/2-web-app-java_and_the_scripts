@@ -53,7 +53,10 @@
     <hr>
     
     <h2 style="text-align: center;">Delete Results</h2>
-    <!-- If you want to display some results or confirmation message after deletion -->
-     <p></p>
+    {% if message %}
+    <div class="message {% if 'No tasks found' in message %}error{% else %}success{% endif %}">
+        {{ message }}
+    </div>
+    {% endif %}
 </body>
 </html>
