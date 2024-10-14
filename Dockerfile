@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Install dependencies from requirements.txt
 COPY requirements.txt ./
-RUN pip install --upgrade pip && pip install -r requirements.txt
+RUN pip install --upgrade pip && pip install --upgrade pymongo && pip install -r requirements.txt
 
 # Add all files from the current directory to the container
 ADD . .
@@ -19,3 +19,6 @@ ENV FLASK_APP=app.app:create_app
 
 # Run the Flask app on container start
 CMD ["python", "-m", "flask", "run", "--host=0.0.0.0", "--port=11000"]
+
+
+

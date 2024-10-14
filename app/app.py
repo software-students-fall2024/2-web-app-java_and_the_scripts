@@ -105,11 +105,6 @@ def create_app():
         #tasks = tasks means that it's passing data from the backend to the frontend html template
         #remember to modify html to use tasks
     
-    #we don't think this is needed
-    # Route for displaying pending tasks
-    #@app.route('/pending', methods=['GET', 'POST'])
-    #def pending_tasks():
-    #    return render_template('pending.html')
 
     # Route for searching tasks by title and category
     @app.route('/search', methods=['GET', 'POST'])
