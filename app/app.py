@@ -54,7 +54,7 @@ def create_app():
 
     # Route for editing a task
     @app.route('/edit/<task_id>')
-    def edit_task():
+    def edit_task(task_id):
         task = db.tasks.find_one({"_id": ObjectId(task_id)})
         return render_template("data_edit.html", task=task)
     @app.route("/edit/<task_id>", methods=["POST"])
