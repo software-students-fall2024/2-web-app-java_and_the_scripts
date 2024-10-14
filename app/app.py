@@ -24,7 +24,8 @@ def create_app():
     # Home route
     @app.route('/')
     def index():
-        return render_template('index.html')
+        current_tasks = list(db.tasks.find({"status": "Not completed"}).sort("created_at", pymongo.DESCENDING))
+        return render_template('index.html', tasks=current_tasks)
 
     # Route for adding a task
     @app.route('/add', methods=['GET', 'POST'])
@@ -39,7 +40,7 @@ def create_app():
                 "title": title,
                 "category": category,
                 "description": description,
-                "created_at": datetime.datetime.utcnow(),
+                "created_at": datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M'),
                 "deadline": deadline,
                 "status" : "Not completed"
 
