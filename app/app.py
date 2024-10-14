@@ -3,7 +3,7 @@ import pymongo
 import datetime
 import os
 from dotenv import load_dotenv
-
+from bson import ObjectId
 load_dotenv()
 
 def create_app():
@@ -67,7 +67,7 @@ def create_app():
             redirect (Response): A redirect response to the home page.
         """
         title = request.form["title"]
-        category = request.form.get['category']
+        category = request.form.get('category')
         description = request.form["description"]
         deadline = request.form["deadline"]
 
@@ -125,9 +125,9 @@ def create_app():
                 #regex means regular expression
                 #options: i  is a flag that will make the search case-insensitive
                 if title:
-                    query["title"] = {"$regex" : title, "$options": i}
+                    query["title"] = {"$regex" : title, "$options": "i"}
                 if category:
-                    query["category"] = {"$regex": category, "$options": i}
+                    query["category"] = {"$regex": category, "$options": "i"}
                 
                 tasks = list(db.tasks.find(query))
 
