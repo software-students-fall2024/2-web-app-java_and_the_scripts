@@ -31,7 +31,7 @@ def create_app():
     def add_task():
         if request.method == 'POST':
             title = request.form["title"]
-            category = request.form.get['category']
+            category = request.form.get('category')
             description = request.form["description"]
             deadline = request.form["deadline"]
 

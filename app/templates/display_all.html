@@ -45,8 +45,31 @@
     <div class="task-section">
         <h2>Pending Tasks</h2>
         <ul>
-                <li>    <!-- Add stuff from database  --> </li>
-                <li>    <!-- Add stuff from database  --> </li>
+            {% for task in tasks %}
+            {% if task.status == 'Not completed' %}
+            <article class="tas">
+                <nav class="controls">
+                    <a href="{{ url_for('edit', task_id=task._id)}}">Edit</a> | <a href="{{ url_for('delete', task_id=task._id)}}">Delete</a> 
+                    | <a href="{{ url_for('delete', task_id=task._id)}}">Complete</a>
+                </nav>
+                <p class="title">
+                    {{task.title}} at {{ task.created_at.strftime("%H:%M on %d %B %Y") }}
+                </p>
+                <p class="category">
+                    {{ task.category }}
+                </p>
+                <p class="description">
+                    {{ task.description }}
+                </p>
+                <p class="created_at">
+                    {{ task.created_at }}
+                </p>
+                <p class="deadline">
+                    {{ task.deadline }}
+                </p>
+            </article>
+            {% endif %}
+            {%endfor%}
         </ul>
     </div>
 
