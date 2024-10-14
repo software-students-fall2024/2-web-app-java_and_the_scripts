@@ -5,8 +5,56 @@
     <title>Task Search</title>
     <style>
         
-        form {
-            margin: 20px;
+        main {
+            margin: 20px auto;
+            max-width: 600px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 10px 0;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .task-title {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .task-details {
+            font-size: 14px;
+            color: #555;
+            margin-top: 5px;
+        }
+
+        .controls {
+            text-align: left;
+            margin-top: 10px;
+        }
+
+        .controls a {
+            margin-right: 10px;
+            font-size: 1em;
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .controls a:hover {
+            text-decoration: underline;
+        }
+
+        h2 {
+            font-size: 1.6em;
+            margin-bottom: 20px;
+            color: #333;
             text-align: center;
         }
 
@@ -19,11 +67,9 @@
             cursor: pointer;
         }
 
-        hr {
-            border: 0;
-            height: 1px;
-            background: #ddd;
-            margin: 20px 0;
+        form {
+            margin: 20px;
+            text-align: center;
         }
 
     </style>
@@ -51,8 +97,28 @@
 
      <hr>
      
-        <h2 style="text-align: center;">Search Results</h2>
-        <!-- Add stuff from database search -->
+     <h2>Search Results</h2>
+     <ul>
+         {% if tasks %}
+             {% for task in tasks %}
+                 <li>
+                     <div class="task-title">{{ task.title }} - {{ task.category }}</div>
+                     <div class="task-details">{{ task.description }}</div>
+                     <div class="task-details">
+                         <strong>Posted on:</strong> {{ task.created_at }} |
+                         <strong>Deadline:</strong> {{ task.deadline }}
+                     </div>
+                     <nav class="controls">
+                         <a href="{{ url_for('edit_task', task_id=task._id) }}">Edit</a> |
+                         <a href="{{ url_for('delete_task', task_id=task._id) }}">Delete</a> |
+                         <a href="{{ url_for('complete_task', task_id=task._id) }}">Complete</a>
+                     </nav>
+                 </li>
+             {% endfor %}
+         {% else %}
+             <li style="text-align: center;">No tasks found matching your search criteria.</li>
+         {% endif %}
+     </ul>
  
 </body>
 </html>
