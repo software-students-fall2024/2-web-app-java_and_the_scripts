@@ -101,7 +101,7 @@ def create_app():
             title = request.form["title"]
             category = request.form.get['category']
             db.tasks.delete_many({"title": title, "category": category})
-        return render_template('data_delete.html')
+        return render_template('delele_by_many.html')
     
     # Route for deleting a task
     @app.route("/complete/<task_id>")
