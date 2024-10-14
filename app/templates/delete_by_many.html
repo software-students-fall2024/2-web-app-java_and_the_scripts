@@ -24,6 +24,10 @@
             background: #ddd;
             margin: 20px 0;
         }
+        message{
+            text-align:center;
+            font-size:16px;
+        }
     </style>
 </head>
 <body>
@@ -60,7 +64,7 @@
     
     <h2 style="text-align: center;">Delete Results</h2>
     {% if message %}
-    <div class="message {% if 'No tasks found' in message %}error{% else %}success{% endif %}">
+    <div class="message">
         {{ message }}
     </div>
     {% endif %}
