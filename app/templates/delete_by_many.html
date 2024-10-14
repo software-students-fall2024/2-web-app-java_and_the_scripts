@@ -32,6 +32,7 @@
         <a href="{{ url_for('add_task') }}" style="display: inline-block; padding: 4px 4px; margin: 2px; text-decoration: none; color: #333; background-color: #fff; border-radius: 3px; border: 1px solid #ddd; font-size: 10px;">Add</a>
         <a href="{{ url_for('display_tasks') }}" style="display: inline-block; padding: 4px 4px; margin: 2px; text-decoration: none; color: #333; background-color: #fff; border-radius: 3px; border: 1px solid #ddd; font-size: 10px;">All Tasks</a>
         <a href="{{ url_for('search_task') }}" style="display: inline-block; padding: 4px 4px; margin: 2px; text-decoration: none; color: #333; background-color: #fff; border-radius: 3px; border: 1px solid #ddd; font-size: 10px;">Search</a>
+        <a href="{{ url_for('delete_by_many') }}" style="display: inline-block; padding: 4px 4px; margin: 2px; text-decoration: none; color: #333; background-color: #fff; border-radius: 3px; border: 1px solid #ddd; font-size: 10px;">Delete</a>
     </nav>
 
     <h2 style="text-align: center;">Delete Tasks by Category</h2>
@@ -42,8 +43,6 @@
     </form>
 
     <hr>
-    
-    <h2 style="text-align: center;">Delete Results</h2>
-    <!-- If you want to display some results or confirmation message after deletion -->
+
 </body>
 </html>
