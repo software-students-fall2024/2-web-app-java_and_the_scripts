@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Delete Tasks by Category</title>
+    <style>
+        form {
+            margin: 20px;
+            text-align: center;
+        }
+
+        button {
+            padding: 5px 10px;
+            border: none;
+            background-color: #dc3545;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: #ddd;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <nav style="background-color: #f4f4f4; padding: 5px; text-align: center;">
+        <a href="{{ url_for('index') }}" style="display: inline-block; padding: 4px 4px; margin: 2px; text-decoration: none; color: #333; background-color: #fff; border-radius: 3px; border: 1px solid #ddd; font-size: 10px;">Home</a>
+        <a href="{{ url_for('add_task') }}" style="display: inline-block; padding: 4px 4px; margin: 2px; text-decoration: none; color: #333; background-color: #fff; border-radius: 3px; border: 1px solid #ddd; font-size: 10px;">Add</a>
+        <a href="{{ url_for('display_tasks') }}" style="display: inline-block; padding: 4px 4px; margin: 2px; text-decoration: none; color: #333; background-color: #fff; border-radius: 3px; border: 1px solid #ddd; font-size: 10px;">All Tasks</a>
+        <a href="{{ url_for('search_task') }}" style="display: inline-block; padding: 4px 4px; margin: 2px; text-decoration: none; color: #333; background-color: #fff; border-radius: 3px; border: 1px solid #ddd; font-size: 10px;">Search</a>
+    </nav>
+
+    <h2 style="text-align: center;">Delete Tasks by Category</h2>
+
+    <form method="POST" action="/delete-by-many">
+        <input type="text" name="category" placeholder="Enter task category" required>
+        <button type="submit">Delete All Tasks in Category</button>
+    </form>
+
+    <hr>
+    
+    <h2 style="text-align: center;">Delete Results</h2>
+    <!-- If you want to display some results or confirmation message after deletion -->
+</body>
+</html>
