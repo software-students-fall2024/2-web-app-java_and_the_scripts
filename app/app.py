@@ -140,16 +140,15 @@ def create_app():
             category = request.form.get('category')
 
             query = {}
-            if title:
                 #this builds the critria we need to use for .find
                 #regex means regular expression
                 #options: i  is a flag that will make the search case-insensitive
-                if title:
-                    query["title"] = {"$regex" : title, "$options": "i"}
-                if category:
-                    query["category"] = {"$regex": category, "$options": "i"}
-                
-                tasks = list(db.tasks.find(query))
+            if title:
+                query["title"] = {"$regex" : title, "$options": "i"}
+            if category:
+                query["category"] = category
+            
+            tasks = list(db.tasks.find(query))
 
         return render_template('search.html', tasks = tasks) #remember to modify html to use tasks
     return app
