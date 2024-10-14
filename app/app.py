@@ -106,10 +106,10 @@ def create_app():
             if tasks_to_delete > 0:
                 # If there are matching tasks, delete them and set success message
                 db.tasks.delete_many({"category": category})
-                message = f"{tasks_to_delete} tasks in the '{category}' category were successfully deleted."
+                message = f"Tasks in the {category} category were successfully deleted."
             else:
                 # If no matching tasks, set a different message
-                message = f"No tasks found in the '{category}' category to delete."
+                message = f"No tasks found in the {category} category to delete."
         
         return render_template('delete_by_many.html', message=message)
     
