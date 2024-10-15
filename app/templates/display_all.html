@@ -1,8 +1,8 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!DOCTYPE html>
-<html lang ="en">
+<html lang="en">
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Log</title>
     <style>
         .task-section {
@@ -47,7 +47,6 @@
         }
         .controls {
             text-align: left;
-            
             margin-bottom: 10px;
         }
 
@@ -69,7 +68,6 @@
             justify-content: space-between;
             align-items: center;
             font-size: 1.2em;
-            
             color: #333;
             margin-bottom: 10px;
         }
@@ -105,20 +103,61 @@
         .category.Cleaning { background-color: #ffa500; } /* Orange */
         .category.Laundry { background-color: #32cd32; } /* Green */
         .category.Grocery { background-color: #5499c7; } /* color */
-        /* Add other categories as needed */
-
+        
         .Date {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            
             color: #888;
             margin-top: 10px;
         }
         
         .date-info {
             font-size: 0.85em;
-            flex-grow: 1; /* Allows the date to take up available space */
+            flex-grow: 1;
+        }
+
+        /* Responsive styles for mobile devices */
+        @media only screen and (max-width: 600px) {
+            .task-section {
+                width: 95%;
+            }
+
+            h2 {
+                font-size: 1.4em;
+            }
+
+            .task {
+                padding: 10px;
+            }
+
+            .title-category-deadline {
+                font-size: 1em;
+            }
+
+            .title {
+                font-size: 1.1em;
+            }
+
+            .category {
+                font-size: 0.9em;
+            }
+
+            .deadline {
+                font-size: 0.9em;
+            }
+
+            .Date .date-info {
+                font-size: 0.8em;
+            }
+
+            .controls a {
+                font-size: 0.9em;
+            }
+
+            p.description {
+                font-size: 0.9em;
+            }
         }
     </style>
 </head>
@@ -130,7 +169,6 @@
         <a href="{{ url_for('add_task') }}" style="display: inline-block; padding: 8px 10px; margin: 4px; text-decoration: none; color: #333; background-color: #fff; border-radius: 5px; border: 1px solid #ddd; font-size: 14px;">Add</a>
         <a href="{{ url_for('display_tasks') }}" style="display: inline-block; padding: 8px 10px; margin: 4px; text-decoration: none; color: #333; background-color: #fff; border-radius: 5px; border: 1px solid #ddd; font-size: 14px;">All Tasks</a>
         <a href="{{ url_for('search_task') }}" style="display: inline-block; padding: 8px 10px; margin: 4px; text-decoration: none; color: #333; background-color: #fff; border-radius: 5px; border: 1px solid #ddd; font-size: 14px;">Search</a>
-
         <a href="{{ url_for('logout') }}" style="display: inline-block; padding: 8px 10px; margin: 4px; text-decoration: none; color: #333; background-color: #fff; border-radius: 5px; border: 1px solid #ddd; font-size: 14px;">LogOut</a>
     </nav>
     
@@ -139,10 +177,9 @@
     <div class="task-section">
         <h2>Pending Tasks</h2>
         <ul>
-            {% if pending_tasks%}
+            {% if pending_tasks %}
                 {% for task in pending_tasks %}
                     <article class="task">
-
                         <div class="title-category-deadline">
                             <div class="title-category">
                                 <span class="title">{{ task.title }}</span>
@@ -150,20 +187,17 @@
                             </div>
                             <span class="deadline"><strong>Deadline:</strong> {{ task.deadline }}</span>
                         </div>
-                        <p class="description">
-                            {{ task.description }}
-                        </p>
+                        <p class="description">{{ task.description }}</p>
                         <div class="Date">
-                            <div class = "date_info">
-                            <strong>Posted on:</strong> {{ task.created_at }} 
+                            <div class="date-info">
+                                <strong>Posted on:</strong> {{ task.created_at }}
                             </div>
                             <nav class="controls">
                                 <a href="{{ url_for('edit_task', task_id=task._id, redirect_to='display')}}">Edit</a>
-                                 | <a href="{{ url_for('delete_task', task_id=task._id, redirect_to='display')}}">Delete</a> 
-                                | <a href="{{ url_for('complete_task', task_id=task._id,redirect_to='display')}}">Complete</a>
+                                | <a href="{{ url_for('delete_task', task_id=task._id, redirect_to='display')}}">Delete</a> 
+                                | <a href="{{ url_for('complete_task', task_id=task._id, redirect_to='display')}}">Complete</a>
                             </nav>
                         </div>
-                        
                     </article>
                 {% endfor %}
             {% else %}
@@ -177,35 +211,31 @@
 <div class="task-section">
     <h2>Completed Tasks</h2>
     <ul>
-        {% if completed_tasks%}
-        {% for task in completed_tasks %}
-            <article class="task">
-
-                <div class="title-category-deadline">
-                    <div class="title-category">
-                        <span class="title">{{ task.title }}</span>
-                        <span class="category {{ task.category }}">{{ task.category }}</span>
+        {% if completed_tasks %}
+            {% for task in completed_tasks %}
+                <article class="task">
+                    <div class="title-category-deadline">
+                        <div class="title-category">
+                            <span class="title">{{ task.title }}</span>
+                            <span class="category {{ task.category }}">{{ task.category }}</span>
+                        </div>
+                        <span class="deadline"><strong>Deadline:</strong> {{ task.deadline }}</span>
                     </div>
-                    <span class="deadline"><strong>Deadline:</strong> {{ task.deadline }}</span>
-                </div>
-                
-                <p class="description">
-                    {{ task.description }}
-                </p>
-                <div class="Date">
-                    <div class = "date_info">
-                    <strong>Posted on:</strong> {{ task.created_at }} 
+                    <p class="description">{{ task.description }}</p>
+                    <div class="Date">
+                        <div class="date-info">
+                            <strong>Posted on:</strong> {{ task.created_at }}
+                        </div>
+                        <nav class="controls">
+                            <a href="{{ url_for('edit_task', task_id=task._id, redirect_to='display')}}">Edit</a>
+                            | <a href="{{ url_for('delete_task', task_id=task._id, redirect_to='display')}}">Delete</a>
+                        </nav>
                     </div>
-                    <nav class="controls">
-                        <a href="{{ url_for('edit_task', task_id=task._id, redirect_to='display')}}">Edit</a>
-                        | <a href="{{ url_for('delete_task', task_id=task._id, redirect_to='display')}}">Delete</a> 
-                    </nav>
-                </div>
-            </article>
-        {% endfor %}
-    {% else %}
-        <li style="text-align: center;">No completed tasks available </li>
-    {% endif %}
+                </article>
+            {% endfor %}
+        {% else %}
+            <li style="text-align: center;">No completed tasks available</li>
+        {% endif %}
     </ul>
 </div>
 
