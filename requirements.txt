@@ -5,6 +5,3 @@ Jinja2==3.1.4
 pymongo>=4.4
 python-dotenv==1.0.1
 regex==2024.9.11
-Flask-Login==0.5.0
-Werkzeug==2.0.2
-
