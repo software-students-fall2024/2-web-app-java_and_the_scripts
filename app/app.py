@@ -30,11 +30,12 @@ def create_app():
         print(" *", "Connected to MongoDB!")
     except Exception as e:
         print(" * MongoDB connection error:", e) 
+        
     ##########################################       
-    # Initialize LoginManager
+    # LOGIN MANAGER
     login_manager = LoginManager()
     login_manager.init_app(app)
-    login_manager.login_view = 'login'  # Set the login view
+    login_manager.login_view = 'login'
 
     @login_manager.user_loader
     def load_user(user_id):
@@ -43,7 +44,7 @@ def create_app():
             return User(user_id=str(user_data['_id']), username=user_data['username'], password=user_data['password'])
         return None
 
-    # User registration route
+    # REGISTER
     @app.route('/register', methods=['GET', 'POST'])
     def register():
         if request.method == 'POST':
@@ -60,7 +61,7 @@ def create_app():
 
         return render_template('register.html')
 
-    # User login route
+    # LOGIN
     @app.route('/login', methods=['GET', 'POST'])
     def login():
         if request.method == 'POST':
@@ -80,7 +81,7 @@ def create_app():
 
         return render_template('login.html')
 
-    # User logout route
+    # LOGOUT
     @app.route('/logout')
     @login_required
     def logout():
@@ -88,20 +89,12 @@ def create_app():
         flash('You have been logged out.')
         return redirect(url_for('login'))
 
-    # Protect the home route to require login
+    # HOME but have to login or register to access
     @app.route('/')
     @login_required
     def index():
         current_tasks = list(db.tasks.find({"status": "Not completed"}).sort("created_at", pymongo.DESCENDING))
         return render_template('index.html', tasks=current_tasks)
-    ###########
-    
-    # Home route
-    #@app.route('/')
-    #def index():
-    #   current_tasks = list(db.tasks.find({"status": "Not completed"}).sort("created_at", pymongo.DESCENDING))
-    #    return render_template('index.html', tasks=current_tasks)
-    
 
     # Route for adding a task
     @app.route('/add', methods=['GET', 'POST'])
