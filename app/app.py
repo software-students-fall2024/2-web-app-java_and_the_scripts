@@ -23,6 +23,7 @@ def create_app():
     app=Flask(__name__)
     cxn = pymongo.MongoClient(os.getenv("MONGO_URI"))
     db = cxn[os.getenv("MONGO_DBNAME")]
+    app.secret_key = os.getenv('SECRET_KEY')
     
     try:
         cxn.admin.command("ping")
@@ -96,10 +97,11 @@ def create_app():
     ###########
     
     # Home route
-    @app.route('/')
-    def index():
-        current_tasks = list(db.tasks.find({"status": "Not completed"}).sort("created_at", pymongo.DESCENDING))
-        return render_template('index.html', tasks=current_tasks)
+    #@app.route('/')
+    #def index():
+    #   current_tasks = list(db.tasks.find({"status": "Not completed"}).sort("created_at", pymongo.DESCENDING))
+    #    return render_template('index.html', tasks=current_tasks)
+    
 
     # Route for adding a task
     @app.route('/add', methods=['GET', 'POST'])
