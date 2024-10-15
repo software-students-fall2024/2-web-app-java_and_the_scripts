@@ -23,6 +23,7 @@ def create_app():
     app=Flask(__name__)
     cxn = pymongo.MongoClient(os.getenv("MONGO_URI"))
     db = cxn[os.getenv("MONGO_DBNAME")]
+    app.secret_key = os.getenv("SECRET_KEY")
     
     try:
         cxn.admin.command("ping")
