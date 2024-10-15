@@ -29,12 +29,77 @@ def create_app():
         print(" *", "Connected to MongoDB!")
     except Exception as e:
         print(" * MongoDB connection error:", e) 
+    ##########################################       
+    # Initialize LoginManager
+    login_manager = LoginManager()
+    login_manager.init_app(app)
+    login_manager.login_view = 'login'  # Set the login view
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        user_data = db.users.find_one({"_id": ObjectId(user_id)})
+        if user_data:
+            return User(user_id=str(user_data['_id']), username=user_data['username'], password=user_data['password'])
+        return None
+
+    # User registration route
+    @app.route('/register', methods=['GET', 'POST'])
+    def register():
+        if request.method == 'POST':
+            username = request.form['username']
+            password = request.form['password']
+            hashed_password = generate_password_hash(password)
+            if db.users.find_one({"username": username}):
+                flash("Username already exists.")
+                return redirect(url_for('register'))
+
+            db.users.insert_one({"username": username, "password": hashed_password})
+            flash("Registration successful. Please log in.")
+            return redirect(url_for('login'))
+
+        return render_template('register.html')
+
+    # User login route
+    @app.route('/login', methods=['GET', 'POST'])
+    def login():
+        if request.method == 'POST':
+            username = request.form['username']
+            password = request.form['password']
+
+            user_data = db.users.find_one({"username": username})
+
+            if user_data and check_password_hash(user_data['password'], password):
+                user = User(user_id=str(user_data['_id']), username=user_data['username'], password=user_data['password'])
+                login_user(user)
+                flash('Login successful!')
+                return redirect(url_for('index'))
+            else:
+                flash('Invalid username or password.')
+                return redirect(url_for('login'))
+
+        return render_template('login.html')
+
+    # User logout route
+    @app.route('/logout')
+    @login_required
+    def logout():
+        logout_user()
+        flash('You have been logged out.')
+        return redirect(url_for('login'))
+
+    # Protect the home route to require login
+    @app.route('/')
+    @login_required
+    def index():
+        current_tasks = list(db.tasks.find({"status": "Not completed"}).sort("created_at", pymongo.DESCENDING))
+        return render_template('index.html', tasks=current_tasks)
+    ###########
     
     # Home route
-    @app.route('/')
-    def index():
-       current_tasks = list(db.tasks.find({"status": "Not completed"}).sort("created_at", pymongo.DESCENDING))
-       return render_template('index.html', tasks=current_tasks)
+    #@app.route('/')
+    #def index():
+    #   current_tasks = list(db.tasks.find({"status": "Not completed"}).sort("created_at", pymongo.DESCENDING))
+    #    return render_template('index.html', tasks=current_tasks)
     
 
     # Route for adding a task
