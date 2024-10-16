@@ -91,17 +91,17 @@ def create_app():
     @login_required
     def logout():
         logout_user()
-        session.pop('_flashes', None)  # Clear any flash messages
+        session.pop('_flashes', None) 
         flash('You have been logged out.')
         return redirect(url_for('login'))
 
-    # HOME but have to login or register to access
+
     @app.route('/')
     @login_required
     def index():
         user_id = current_user.get_id()
         current_tasks = list(db.tasks.find({
-            "posted_by": user_id,  # Make sure tasks have a user_id field associated with them
+            "posted_by": user_id, 
             "status": "Not completed"
             }).sort("created_at", pymongo.DESCENDING))
     
@@ -138,7 +138,7 @@ def create_app():
         if request.method == 'POST':
             redirect_to = request.args.get("redirect_to")
             
-            # Handle POST request to update the task
+
             title = request.form["title"]
             category = request.form.get('category')
             description = request.form["description"]
@@ -160,7 +160,6 @@ def create_app():
                 return redirect("/")
 
         else:
-            # Handle GET request to display the edit form
             task = db.tasks.find_one({"_id": ObjectId(task_id)})
             return render_template("data_edit.html", task=task)
    
@@ -175,48 +174,28 @@ def create_app():
         else:
             return redirect("/")
 
-    # @app.route('/delete_by_many', methods=['GET', 'POST'])
-    # def delete_by_many():
-    #     message = ""
-    #     if request.method == 'POST':
-    #         category = request.form.get('category')
-    #         # Check how many tasks match the category
-    #         tasks_to_delete = db.tasks.count_documents({"category": category})
-            
-    #         if tasks_to_delete > 0:
-    #             # If there are matching tasks, delete them and set success message
-    #             db.tasks.delete_many({"category": category})
-    #             message = f"Tasks in the {category} category were successfully deleted."
-    #         else:
-    #             # If no matching tasks, set a different message
-    #             message = f"No tasks found in the {category} category to delete."
-        
-    #     return render_template('delete_by_many.html', message=message)
 
 
     @app.route('/delete_selected', methods=['POST'])
     def delete_selected_tasks():
-        task_ids = request.form.getlist('task_ids')  # Get the selected task IDs from the form
+        task_ids = request.form.getlist('task_ids')  
 
-        title = request.form.get('title', '').strip()  # Single title
-        category = request.form.get('category', '').strip()  # Single category
+        title = request.form.get('title', '').strip()  
+        category = request.form.get('category', '').strip()  
 
         if task_ids:
-            # Convert string IDs to ObjectId and delete the selected tasks
             db.tasks.delete_many({"_id": {"$in": [ObjectId(task_id) for task_id in task_ids]}})
        
 
 
         query = {"posted_by": current_user.get_id()}
         if title:
-            query["title"] = {"$regex": title, "$options": "i"}  # Case-insensitive search
+            query["title"] = {"$regex": title, "$options": "i"}
         if category:
             query["category"] = category
 
-        # Fetch the remaining tasks after deletion
         tasks = list(db.tasks.find(query))
 
-        # Render the updated task list with the search parameters
         return render_template('search.html', tasks=tasks, title=title, category=category, searched=True)
 
     
@@ -229,7 +208,7 @@ def create_app():
             {
                 "$set": {
                     "status": "Completed",
-                    "completed_at": datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M')  # Optionally track the completion time
+                    "completed_at": datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M') 
                 }
             }
          )
@@ -245,8 +224,7 @@ def create_app():
         pending_tasks = list(db.tasks.find({"status": "Not completed", "posted_by": user_id}).sort("deadline", pymongo.ASCENDING))
         completed_tasks = list(db.tasks.find({"status": "Completed", "posted_by": user_id}).sort("completed_at", pymongo.DESCENDING))
         return render_template('display_all.html', pending_tasks = pending_tasks, completed_tasks = completed_tasks)
-        #tasks = tasks means that it's passing data from the backend to the frontend html template
-        #remember to modify html to use tasks
+
     
 
     # Route for searching tasks by title and category
@@ -256,8 +234,6 @@ def create_app():
         searched = False
 
         if request.method == 'POST':
-            # title = request.form.get('title')
-            # category = request.form.get('category')
             title = request.form.get('title', '').strip()
             category = request.form.get('category', '').strip()
 
@@ -280,7 +256,6 @@ def create_app():
             tasks = list(db.tasks.find(query))
 
         return render_template('search.html', tasks=tasks, title=title, category=category, searched = searched)
-        # return render_template('search.html', tasks = tasks) #remember to modify html to use tasks
     return app
 
 if __name__ == '__main__':

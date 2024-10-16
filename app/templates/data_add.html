@@ -6,7 +6,6 @@
     <title>Add Task</title>
 
     <style>
-        /* Consistent Navigation Styles */
         nav {
             background-color: #f4f4f4;
             padding: 8px;
@@ -67,11 +66,7 @@
     </style>
 </head>
 <body>
-
-    <!-- Consistent Header -->
     <h2>Task Manager</h2>
-
-    <!-- Navigation Bar -->
     <nav>
         <a href="{{ url_for('index') }}">Home</a>
         <a href="{{ url_for('add_task') }}">Add</a>
@@ -82,7 +77,6 @@
 
     <h2 style="font-size: 20px;">Add New Task</h2>
 
-    <!-- Form for Adding a Task -->
     <form method="POST">
         <div style="text-align: center; margin-bottom: 12px;">
             <label for="title" style="display: block; margin-bottom: 5px;">Task Title:</label>
@@ -110,7 +104,6 @@
             <input type="date" id="deadline" name="deadline" required>
         </div>
 
-        <!-- Submit Button -->
         <div style="text-align: center;">
             <button type="submit" style="padding: 12px 24px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px;">
                 Add Task

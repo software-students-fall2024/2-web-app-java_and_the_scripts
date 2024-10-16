@@ -31,7 +31,8 @@ Our mobile web app allows people to be more organized by keeping track of their 
 
 ## Steps necessary to run the software
 
-See instructions. Delete this line and place instructions to download, configure, and run the software here.
+1. Install Python
+2.
 
 ## Task boards
 
