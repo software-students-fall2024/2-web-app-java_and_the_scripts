@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, session, url_for, flash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 import pymongo
@@ -91,6 +91,7 @@ def create_app():
     @login_required
     def logout():
         logout_user()
+        session.pop('_flashes', None)  # Clear any flash messages
         flash('You have been logged out.')
         return redirect(url_for('login'))
 
