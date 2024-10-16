@@ -203,9 +203,7 @@ def create_app():
         if task_ids:
             # Convert string IDs to ObjectId and delete the selected tasks
             db.tasks.delete_many({"_id": {"$in": [ObjectId(task_id) for task_id in task_ids]}})
-            flash(f"Deleted {len(task_ids)} task(s) successfully.")
-        else:
-            flash("No tasks selected for deletion.")
+       
 
 
         query = {}
@@ -219,8 +217,6 @@ def create_app():
 
         # Render the updated task list with the search parameters
         return render_template('search.html', tasks=tasks, title=title, category=category, searched=True)
-
-        # return redirect(url_for('search_task'))
 
     
     # Route for deleting a task
