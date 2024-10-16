@@ -72,7 +72,7 @@
             margin: 20px;
             text-align: center;
         }
-        p {
+        .notask {
             margin: 8px 0;
             padding: 10px;
             background-color: #f9f9f9;
@@ -134,7 +134,7 @@
         <button type="submit">Delete Selected</button>
     </form>
     {% elif searched %}
-        <p style="text-align: center;">No tasks found matching your search criteria.</p>
+        <p name= "notask"style="text-align: center;">No tasks found matching your search criteria.</p>
     {% endif %}
 
  
