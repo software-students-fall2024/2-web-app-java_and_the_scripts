@@ -42,11 +42,13 @@
         }
 
         input, select, textarea {
-            width: 90%;
-            padding: 10px;
-            font-size: 14px;
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            display: inline-block;
             border: 1px solid #ccc;
-            border-radius: 5px;
+            border-radius: 4px;
+            box-sizing: border-box;
         }
 
         textarea {
@@ -54,6 +56,7 @@
         }
 
         button {
+            width: 100%;
             padding: 12px 24px;
             background-color: #4CAF50;
             color: white;
@@ -96,7 +99,7 @@
     <h2 >Task Manager</h2>
     <nav>
         <a href="{{ url_for('index') }}">Home</a>
-        <a href="{{ url_for('add_task') }}">Add Task</a>
+        <a href="{{ url_for('add_task') }}">Add</a>
         <a href="{{ url_for('display_tasks') }}">All Tasks</a>
         <a href="{{ url_for('search_task') }}">Search</a>
         <a href="{{ url_for('logout') }}">Log Out</a>
