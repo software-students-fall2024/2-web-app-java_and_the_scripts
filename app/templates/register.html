@@ -24,7 +24,41 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
     }
+    .Link a {
+        margin-right: 10px;
+        margin-left: 10px;
+        font-size: 0.5em;
+        text-decoration: none;
+        color: #007bff;
+    }
 
+    .Link a:hover {
+        text-decoration: underline;
+    }
+    button {
+        width: 100%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 20px;
+        margin: 10px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+    input[type="text"], input[type="password"] {
+        width: 100%;
+        padding: 12px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
 </style>
 </head>
 <body>
@@ -45,31 +79,33 @@
 
 <!-- Form for Registering a User -->
 <form method="POST" >
-    <h2 style="text-align: center; font-size: 20px;">Register</h2>
+    <h2 style="text-align: center; font-size: 20px;">User Sign Up</h2>
     <!-- Username Field -->
     <div style="margin-bottom: 12px;">
-        <label for="username" style="display: block; margin-bottom: 5px; font-size: 14px;">Username:</label>
-        <input type="text" id="username" name="username" required style="width: 90%; padding: 10px; font-size: 14px; border: 1px solid #ccc; border-radius: 5px;">
+         <input type="text" id="username" name="username" placeholder= "Username" required>
     </div>
 
     <!-- Password Field -->
     <div style="margin-bottom: 12px;">
-        <label for="password" style="display: block; margin-bottom: 5px; font-size: 14px;">Password:</label>
-        <input type="password" id="password" name="password" required style="width: 90%; padding: 10px; font-size: 14px; border: 1px solid #ccc; border-radius: 5px;">
+         <input type="password" id="password" name="password" placeholder= "Password" required>
     </div>
+
+    <!-- Re enter Password Field -->
+    <div style="margin-bottom: 12px;">
+        <input type="password" id="repassword" name="repassword" placeholder= "Confirm Password" required>
+   </div>
 
     <!-- Register Button -->
     <div style="margin-bottom: 12px;">
-        <button type="submit" style="padding: 12px 24px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px;">
+        <button type="submit" >
             Register
         </button>
     </div>
 
     <!-- Login Link -->
     <div>
-        <p style="font-size: 14px; color: #555;">Already have an account?</p>
-        <a href="{{ url_for('login') }}" style="padding: 12px 24px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; font-size: 14px; display: inline-block; margin-top: 8px;">
-            Login
+        <a href="{{ url_for('login') }}" style="font-size: 15px; color: #555;" name = "Link">
+            Already have an account? Log In Here
         </a>
     </div>
 </form>

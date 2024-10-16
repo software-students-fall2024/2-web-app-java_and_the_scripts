@@ -50,10 +50,16 @@ def create_app():
         if request.method == 'POST':
             username = request.form['username']
             password = request.form['password']
+            repassword = request.form['repassword']
+            if password != repassword:
+                flash("Passwords do not match.")
+                return redirect(url_for('register'))
+            
             hashed_password = generate_password_hash(password)
             if db.users.find_one({"username": username}):
                 flash("Username already exists.")
                 return redirect(url_for('register'))
+            
 
             db.users.insert_one({"username": username, "password": hashed_password})
             flash("Registration successful. Please log in.")
@@ -67,7 +73,6 @@ def create_app():
         if request.method == 'POST':
             username = request.form['username']
             password = request.form['password']
-
             user_data = db.users.find_one({"username": username})
 
             if user_data and check_password_hash(user_data['password'], password):
