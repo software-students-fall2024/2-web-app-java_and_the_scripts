@@ -266,13 +266,15 @@ def create_app():
         title = request.args.get('title', '').strip()
         category = request.args.get('category', '').strip()
         
-        query = {"posted_by": current_user.get_id()}
+        query = {}
 
         if title or category:
             searched = True
-            query["title"] = {"$regex" : title, "$options": "i"}
-        if category:
-            query["category"] = category
+            query = {"posted_by": current_user.get_id()}
+            if title:
+                query["title"] = {"$regex" : title, "$options": "i"}
+            if category:
+                query["category"] = category
         
         if query:
             tasks = list(db.tasks.find(query))

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Task Manager</title>
     <style>
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -51,14 +52,13 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
+            margin-bottom: 12px;
         }
 
         button:hover {
             background-color: #45a049;
         }
-        .Link {
-            text-decoration: none;
-        }
+
         .Link a {
             margin-right: 10px;
             margin-left: 10px;
@@ -76,8 +76,16 @@
             font-size: 14px;
             text-align: center;
         }
+<<<<<<< HEAD
 
         .register-link a:hover {
+=======
+        a {
+            text-decoration: none;
+        }
+        
+        a:hover {
+>>>>>>> 91edbfe36ef4bfd34a5970f55e37c830733f0b4c
             text-decoration: underline;
         }
     </style>
@@ -115,11 +123,16 @@
     </div>
 
     <!-- Submit Button -->
-    <button type="submit">Login</button>
+    <button type="submit" >Login</button>
 
     <!-- Register Button -->
+<<<<<<< HEAD
     <div class = "register-link">
         <a href="{{ url_for('register') }}" style="font-size: 15px; color: #555;" name="Link">
+=======
+    <div>
+        <a href="{{ url_for('register') }}" style="font-size: 15px; color: #555" name="Link">
+>>>>>>> 91edbfe36ef4bfd34a5970f55e37c830733f0b4c
             Don't have an account? Sign up Here</a>
     </div>
 </form>
