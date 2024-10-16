@@ -7,67 +7,121 @@
     <title>Task Search</title>
     <style>
         
-        nav {
-            background-color: #f4f4f4;
-            padding: 8px;
-            text-align: center;
-        }
-
-        nav a {
-            display: inline-block;
-            padding: 8px 10px;
-            margin: 4px;
-            text-decoration: none;
-            color: #333;
-            background-color: #fff;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            font-size: 14px;
-        }
-
+        
         nav a:hover {
             background-color: #e0e0e0;
         }
-
+        
+        .task-section {
+            width: 80%;
+            margin: 10px auto;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .task {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #fafafa;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        hr {
+            border: 0;
+            height: 1px;
+            background: #ddd;
+            margin: 20px 0;
+        }
+        h2 {
+            font-size: 1.6em;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
         ul {
             list-style: none;
             padding: 0;
         }
 
         li {
-            margin: 10px 0;
-            padding: 15px;
-            background-color: #fff;
-            border-radius: 8px;
+            margin: 8px 0;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
-
-        .task-title {
-            font-weight: bold;
-            font-size: 16px;
-            margin-bottom: 5px;
-        }
-
-        .task-details {
-            font-size: 14px;
-            color: #555;
-            margin-top: 5px;
-        }
-
         .controls {
             text-align: left;
-            margin-top: 10px;
+            margin-bottom: 10px;
         }
 
         .controls a {
             margin-right: 10px;
-            font-size: 1em;
+            margin-left: 10px;
+            font-size: 0.5em;
             text-decoration: none;
             color: #007bff;
         }
 
         .controls a:hover {
             text-decoration: underline;
+        }
+
+        .title-category-deadline {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .title-category {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+        .title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+        }
+        .category {
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-size: 1em;
+            font-weight: bold;
+            margin-left: 10px;
+            white-space: nowrap;
+            display: inline-block;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .deadline {
+            font-size: 1em;
+            color: #333;
+            white-space: nowrap;
+        }
+        /* Different colors for categories */
+        .category.Work { background-color: #ff6347; } /* Red */
+        .category.Personal { background-color: #4682b4; } /* Blue */
+        .category.Cleaning { background-color: #ffa500; } /* Orange */
+        .category.Laundry { background-color: #32cd32; } /* Green */
+        .category.Grocery { background-color: #5499c7; } /* color */
+        
+        .Date {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #888;
+            margin-top: 10px;
+        }
+        
+        .date-info {
+            font-size: 0.85em;
+            flex-grow: 1;
         }
 
 
@@ -77,24 +131,88 @@
         }
 
         button {
-            padding: 5px 10px;
-            border: none;
-            background-color: #007bff;
+            width: 100%;
+            background-color: #4CAF50;
             color: white;
+            padding: 12px 20px;
+            margin: 10px 0;
+            border: none;
             border-radius: 4px;
             cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 12px;
         }
 
-        form {
-            margin: 20px;
-            text-align: center;
+        button:hover {
+            background-color: #45a049;
         }
+
         .notask {
             margin: 8px 0;
             padding: 10px;
             background-color: #f9f9f9;
             border-radius: 4px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        /* Responsive styles for mobile devices */
+        @media only screen and (max-width: 600px) {
+            .task-section {
+                width: 95%;
+            }
+
+            h2 {
+                font-size: 1.4em;
+            }
+
+            .task {
+                padding: 10px;
+            }
+
+            .title-category-deadline {
+                font-size: 1em;
+            }
+
+            .title {
+                font-size: 1.1em;
+            }
+
+            .category {
+                font-size: 0.9em;
+            }
+
+            .deadline {
+                font-size: 0.9em;
+            }
+
+            .Date .date-info {
+                font-size: 0.8em;
+            }
+
+            .controls a {
+                font-size: 0.9em;
+            }
+
+            p.description {
+                font-size: 0.9em;
+            }
+        }
+
+        .flexdiv {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        .search_input {
+            width: 48%;
+            height:42px;
+            text-align:center;
+            padding: 12px;
+            margin: 8px 8px;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
         }
     </style>
 </head>
@@ -114,8 +232,9 @@
     <h2>Search Task by Title or Category</h2>
 
     <form method="POST" action="/search">
-        <input type="text" name="title" placeholder="Enter task title">
-        <select name="category">
+        <div class = "flexdiv">
+        <input class = "search_input" type="text" name="title" placeholder="Enter task title">
+        <select class = "search_input" name="category">
             <option value="">-- Select a category --</option>
             <option value="Cleaning">Cleaning</option>
             <option value="Laundry">Laundry</option>
@@ -123,6 +242,7 @@
             <option value="Work">Work</option>
             <option value="Personal">Personal</option>
         </select>
+    </div>
 
         <button type="submit">Search</button>
     </form>
@@ -131,21 +251,34 @@
 
     {% if tasks %}
     <form method="POST" action="/delete_selected">
-
+        
         <input type="hidden" name="title" value="{{ title }}">
         <input type="hidden" name="category" value="{{ category }}">
-
         <ul>
             {% for task in tasks %}
-            <li>
-                
-                <div class="task-title"> <input type="checkbox" name="task_ids" value="{{ task._id }}"> {{ task.title }} - {{ task.category }}</div>
-                <div class="task-details">{{ task.description }}</div>
-                <div class="task-details">
-                    <strong>Posted on:</strong> {{ task.created_at }} |
-                    <strong>Deadline:</strong> {{ task.deadline }}
+            <article class="task">
+                <div class="title-category-deadline">
+                    <div class="title-category">
+                        <input type="checkbox" name="task_ids" value="{{ task._id }}" style= "margin-right:10px"> 
+
+                        <span class="title">{{ task.title }}</span>
+                        <span class="category {{ task.category }}">{{ task.category }}</span>
+                    </div>
+                    <span class="deadline"><strong>Deadline:</strong> {{ task.deadline }}</span>
                 </div>
-            </li>
+                <p class="description">{{ task.description }}</p>
+                <div class="Date">
+                    <div class="date-info">
+                        <strong>Posted on:</strong> {{ task.created_at }}
+                    </div>
+                    <nav class="controls">
+                        <a href="{{ url_for('edit_task', task_id=task._id, redirect_to='display')}}">Edit</a>
+                        | <a href="{{ url_for('delete_task', task_id=task._id, redirect_to='display')}}">Delete</a> 
+                        | <a href="{{ url_for('complete_task', task_id=task._id, redirect_to='display')}}">Complete</a>
+                    </nav>
+                </div>
+            </article>
+
             {% endfor %}
         </ul>
         <button type="submit">Delete Selected</button>
