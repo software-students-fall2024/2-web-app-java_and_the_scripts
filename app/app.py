@@ -269,7 +269,7 @@ def create_app():
         title = request.args.get('title', '').strip()
         category = request.args.get('category', '').strip()
         
-        query = {}
+        query = {"posted_by": current_user.get_id()}
 
         if title or category:
             searched = True
