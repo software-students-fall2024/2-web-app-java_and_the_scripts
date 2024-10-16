@@ -31,51 +31,52 @@ Our mobile web app allows people to be more organized by keeping track of their 
 
 ## Steps necessary to run the software
 
-## Install Python
+### Install Python
 Install Python on your local machine.
 
-## Clone the repository to your local machine
+### Clone the repository to your local machine
 ```bash 
 git clone https://github.com/software-students-fall2024/2-web-app-java_and_the_scripts.git
 ```
 
-## Install Requirements
+### Install Requirements
 Install Flask and Pymongo, and other requirements on your local machine.
 ```bash 
 pip3 install -r requirements.txt
 ```
 
-## Install Docker
+### Install Docker
 Install Docker on your local machine.
 
-## Navigate into cloned directory using cd
+### Navigate into cloned directory using cd
 Ensure that the current working directory is in the project.
 
-## Configure .env file
+### Configure .env file
 Copy the provided contents of .env posted in the discord and create your own .env file located in the project folder.
 
-## Boot up DB and Web App
+### Boot up DB and Web App
 Use Docker Compose to boot up both the `mongodb` database and the `flask-app` web app with one command:
 ```bash
  docker compose up --force-recreate --build
  ```
 
-## Stop Containers
+### Stop Containers
 When done using application, stop docker containers using:
 ```bash 
 docker compose down
 ```
 
-## Error Messages
+### Error Messages
 If you see an error message that a particular port is already in use, select a different port for either the `flask-app` or `mongodb` service, as necessary.  To do so, edit the first port number for that service in the `docker-compose.yml` file and try again. E.g., change the `flask-app`'s port to `12000:12000` if you want the flask app to run on port `12000` on your computer.  If changing the `flask-app` port in this way, you must also update the `FLASK_PORT` setting in the `docker-compose.yml` file to match
 
-## View App
+### View App
 Open a web browser and go to `http://localhost:11000` (or change `11000` to whatever port number you used for the `flask-app`.)
 
 
-## Task boards
+### Task boards
 
 [Task Board Sprint 1](https://github.com/orgs/software-students-fall2024/projects/25)
+
 [Task Board Sprint 2](https://github.com/orgs/software-students-fall2024/projects/88/views/1)
  
 
