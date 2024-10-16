@@ -114,15 +114,15 @@ def create_app():
             category = request.form.get('category')
             description = request.form["description"]
             deadline = request.form["deadline"]
-
+            user_id = current_user.get_id()
             task = {
                 "title": title,
                 "category": category,
                 "description": description,
                 "created_at": datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M'),
                 "deadline": deadline,
-                "status" : "Not completed"
-
+                "status" : "Not completed",
+                "posted_by": user_id
             }
             
             db.tasks.insert_one(task)
