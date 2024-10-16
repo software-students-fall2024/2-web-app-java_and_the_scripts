@@ -4,7 +4,20 @@
     <!-- Meta Tag for Mobile Responsiveness -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+    form {
+        background-color: #fff;
+        max-width: 400px;
+        padding: 20px;
+        margin: 50px auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
 
 </style>
 </head>
@@ -25,7 +38,7 @@
 {% endwith %}
 
 <!-- Form for Registering a User -->
-<form method="POST" style="max-width: 100%; padding: 10px; margin: auto; text-align: center; background-color: #fff;">
+<form method="POST" style="max-width: 100%; padding: 10px; margin: auto; text-align: center; ">
     <!-- Username Field -->
     <div style="margin-bottom: 12px;">
         <label for="username" style="display: block; margin-bottom: 5px; font-size: 14px;">Username:</label>
