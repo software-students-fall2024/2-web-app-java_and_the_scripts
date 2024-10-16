@@ -1,54 +1,116 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Task</title>
 
-<!-- Navigation Bar for Mobile -->
-<h2 style="text-align: center; font-size: 24px;">Task Manager</h2>
-<nav style="background-color: #f4f4f4; padding: 8px; text-align: center;">
-    <a href="{{ url_for('index') }}" style="display: inline-block; padding: 8px 10px; margin: 4px; text-decoration: none; color: #333; background-color: #fff; border-radius: 5px; border: 1px solid #ddd; font-size: 14px;">Home</a>
-    <a href="{{ url_for('add_task') }}" style="display: inline-block; padding: 8px 10px; margin: 4px; text-decoration: none; color: #333; background-color: #fff; border-radius: 5px; border: 1px solid #ddd; font-size: 14px;">Add</a>
-    <a href="{{ url_for('display_tasks') }}" style="display: inline-block; padding: 8px 10px; margin: 4px; text-decoration: none; color: #333; background-color: #fff; border-radius: 5px; border: 1px solid #ddd; font-size: 14px;">All Tasks</a>
-    <a href="{{ url_for('search_task') }}" style="display: inline-block; padding: 8px 10px; margin: 4px; text-decoration: none; color: #333; background-color: #fff; border-radius: 5px; border: 1px solid #ddd; font-size: 14px;">Search</a>
+    <style>
+        /* Consistent Navigation Styles */
+        nav {
+            background-color: #f4f4f4;
+            padding: 8px;
+            text-align: center;
+        }
 
-    <a href="{{ url_for('logout') }}" style="display: inline-block; padding: 8px 10px; margin: 4px; text-decoration: none; color: #333; background-color: #fff; border-radius: 5px; border: 1px solid #ddd; font-size: 14px;">LogOut</a>
-</nav>
+        nav a {
+            display: inline-block;
+            padding: 8px 10px;
+            margin: 4px;
+            text-decoration: none;
+            color: #333;
+            background-color: #fff;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
 
-<h2 style="text-align: center; font-size: 20px;">Add New Task</h2>
+        nav a:hover {
+            background-color: #e0e0e0;
+        }
 
-<!-- Form for Adding a Task -->
-<form method="POST" style="max-width: 100%; padding: 10px; margin: auto;">
-    <!-- Task Title -->
-    <div style="text-align: center; margin-bottom: 12px;">
-        <label for="title" style="display: block; margin-bottom: 5px; font-size: 14px;">Task Title:</label>
-        <input type="text" id="title" name="title" required style="width: 90%; padding: 10px; font-size: 14px; border: 1px solid #ccc; border-radius: 5px;">
-    </div>
+        h2 {
+            text-align: center;
+            font-size: 24px;
+        }
 
-    <!-- Task Category Dropdown -->
-    <div style="text-align: center; margin-bottom: 12px;">
-        <label for="category" style="display: block; margin-bottom: 5px; font-size: 14px;">Task Category:</label>
-        <select id="category" name="category" required style="width: 90%; padding: 10px; font-size: 14px; border: 1px solid #ccc; border-radius: 5px;">
-            <option value="Cleaning">Cleaning</option>
-            <option value="Laundry">Laundry</option>
-            <option value="Grocery">Grocery</option>
-            <option value="Work">Work</option>
-            <option value="Personal">Personal</option>
-        </select>
-    </div>
+        form {
+            max-width: 100%;
+            padding: 10px;
+            margin: auto;
+        }
 
-    <!-- Task Description -->
-    <div style="text-align: center; margin-bottom: 12px;">
-        <label for="description" style="display: block; margin-bottom: 5px; font-size: 14px;">Description:</label>
-        <textarea id="description" name="description" rows="3" required style="width: 90%; padding: 10px; font-size: 14px; border: 1px solid #ccc; border-radius: 5px;"></textarea>
-    </div>
+        input, select, textarea {
+            width: 90%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
 
-    <!-- Deadline Date -->
-    <div style="text-align: center; margin-bottom: 12px;">
-        <label for="deadline" style="display: block; margin-bottom: 5px; font-size: 14px;">Deadline:</label>
-        <input type="date" id="deadline" name="deadline" required style="width: 90%; padding: 10px; font-size: 14px; border: 1px solid #ccc; border-radius: 5px;">
-    </div>
+        button {
+            padding: 12px 24px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
 
-    <!-- Submit Button -->
-    <div style="text-align: center;">
-        <button type="submit" style="padding: 12px 24px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px;">
-            Add Task
-        </button>
-    </div>
-</form>
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Consistent Header -->
+    <h2>Task Manager</h2>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('add_task') }}">Add</a>
+        <a href="{{ url_for('display_tasks') }}">All Tasks</a>
+        <a href="{{ url_for('search_task') }}">Search</a>
+        <a href="{{ url_for('logout') }}">Log Out</a>
+    </nav>
+
+    <h2 style="font-size: 20px;">Add New Task</h2>
+
+    <!-- Form for Adding a Task -->
+    <form method="POST">
+        <div style="text-align: center; margin-bottom: 12px;">
+            <label for="title" style="display: block; margin-bottom: 5px;">Task Title:</label>
+            <input type="text" id="title" name="title" required>
+        </div>
+
+        <div style="text-align: center; margin-bottom: 12px;">
+            <label for="category" style="display: block; margin-bottom: 5px;">Task Category:</label>
+            <select id="category" name="category" required>
+                <option value="Cleaning">Cleaning</option>
+                <option value="Laundry">Laundry</option>
+                <option value="Grocery">Grocery</option>
+                <option value="Work">Work</option>
+                <option value="Personal">Personal</option>
+            </select>
+        </div>
+
+        <div style="text-align: center; margin-bottom: 12px;">
+            <label for="description" style="display: block; margin-bottom: 5px;">Description:</label>
+            <textarea id="description" name="description" rows="3" required></textarea>
+        </div>
+
+        <div style="text-align: center; margin-bottom: 12px;">
+            <label for="deadline" style="display: block; margin-bottom: 5px;">Deadline:</label>
+            <input type="date" id="deadline" name="deadline" required>
+        </div>
+
+        <div style="text-align: center;">
+            <button type="submit">Add Task</button>
+        </div>
+    </form>
+
+</body>
+</html>
