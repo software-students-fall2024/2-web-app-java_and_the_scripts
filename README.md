@@ -36,5 +36,7 @@ Our mobile web app allows people to be more organized by keeping track of their 
 
 ## Task boards
 
-[Task Board](https://github.com/orgs/software-students-fall2024/projects/25)
+[Task Board Sprint 1](https://github.com/orgs/software-students-fall2024/projects/25)
+[Task Board Sprint 2](https://github.com/orgs/software-students-fall2024/projects/88/views/1)
+
 
