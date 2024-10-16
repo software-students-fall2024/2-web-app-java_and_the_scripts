@@ -207,7 +207,7 @@ def create_app():
        
 
 
-        query = {}
+        query = {"posted_by": current_user.get_id()}
         if title:
             query["title"] = {"$regex": title, "$options": "i"}  # Case-insensitive search
         if category:
