@@ -100,7 +100,7 @@ def create_app():
     def index():
         user_id = current_user.get_id()
         current_tasks = list(db.tasks.find({
-            "user_id": user_id,  # Make sure tasks have a user_id field associated with them
+            "posted_by": user_id,  # Make sure tasks have a user_id field associated with them
             "status": "Not completed"
             }).sort("created_at", pymongo.DESCENDING))
     
