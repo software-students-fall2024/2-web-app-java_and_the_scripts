@@ -31,8 +31,13 @@ Our mobile web app allows people to be more organized by keeping track of their 
 
 ## Steps necessary to run the software
 
-1. Install Python
-2.
+1. Install Python.
+2. Install Flask.
+3. Install Pymongo.
+4. Install Flask login. 
+5. Install Docker.
+6. Copy the provided contents of .env into your own .env file located in the project folder.
+7. Compile and build the database using “docker compose up --force-recreate --build”
 
 ## Task boards
 
