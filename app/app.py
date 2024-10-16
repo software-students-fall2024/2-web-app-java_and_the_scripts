@@ -244,8 +244,9 @@ def create_app():
     # Route for displaying all tasks
     @app.route('/display', methods=['GET', 'POST'])
     def display_tasks():
-        pending_tasks = list(db.tasks.find({"status": "Not completed"}).sort("deadline", pymongo.ASCENDING))
-        completed_tasks = list(db.tasks.find({"status": "Completed"}).sort("completed_at", pymongo.DESCENDING))
+        user_id = current_user.get_id()
+        pending_tasks = list(db.tasks.find({"status": "Not completed", "posted_by": user_id}).sort("deadline", pymongo.ASCENDING))
+        completed_tasks = list(db.tasks.find({"status": "Completed", "posted_by": user_id}).sort("completed_at", pymongo.DESCENDING))
         return render_template('display_all.html', pending_tasks = pending_tasks, completed_tasks = completed_tasks)
         #tasks = tasks means that it's passing data from the backend to the frontend html template
         #remember to modify html to use tasks
