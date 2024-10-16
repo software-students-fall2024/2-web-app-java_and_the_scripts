@@ -72,7 +72,13 @@
             margin: 20px;
             text-align: center;
         }
-
+        p {
+            margin: 8px 0;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -84,7 +90,7 @@
             <a href="{{ url_for('display_tasks') }}" style="display: inline-block; padding: 8px 10px; margin: 4px; text-decoration: none; color: #333; background-color: #fff; border-radius: 5px; border: 1px solid #ddd; font-size: 14px;">All Tasks</a>
             <a href="{{ url_for('search_task') }}" style="display: inline-block; padding: 8px 10px; margin: 4px; text-decoration: none; color: #333; background-color: #fff; border-radius: 5px; border: 1px solid #ddd; font-size: 14px;">Search</a>
 
-            <a href="{{ url_for('logout') }}" style="display: inline-block; padding: 8px 10px; margin: 4px; text-decoration: none; color: #333; background-color: #fff; border-radius: 5px; border: 1px solid #ddd; font-size: 14px;">LogOut</a>
+            <a href="{{ url_for('logout') }}" style="display: inline-block; padding: 8px 10px; margin: 4px; text-decoration: none; color: #333; background-color: #fff; border-radius: 5px; border: 1px solid #ddd; font-size: 14px;">Log Out</a>
         </nav>
     <header>
 
@@ -115,8 +121,8 @@
         <ul>
             {% for task in tasks %}
             <li>
-                <input type="checkbox" name="task_ids" value="{{ task._id }}">
-                <div class="task-title">{{ task.title }} - {{ task.category }}</div>
+                
+                <div class="task-title"> <input type="checkbox" name="task_ids" value="{{ task._id }}"> {{ task.title }} - {{ task.category }}</div>
                 <div class="task-details">{{ task.description }}</div>
                 <div class="task-details">
                     <strong>Posted on:</strong> {{ task.created_at }} |
@@ -128,7 +134,7 @@
         <button type="submit">Delete Selected</button>
     </form>
     {% elif searched %}
-        <p>No tasks found matching your search criteria.</p>
+        <p style="text-align: center;">No tasks found matching your search criteria.</p>
     {% endif %}
 
  

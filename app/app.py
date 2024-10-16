@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, session, url_for, flash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 import pymongo
@@ -91,6 +91,7 @@ def create_app():
     @login_required
     def logout():
         logout_user()
+        session.pop('_flashes', None)  # Clear any flash messages
         flash('You have been logged out.')
         return redirect(url_for('login'))
 
@@ -240,8 +241,9 @@ def create_app():
     # Route for displaying all tasks
     @app.route('/display', methods=['GET', 'POST'])
     def display_tasks():
-        pending_tasks = list(db.tasks.find({"status": "Not completed"}).sort("deadline", pymongo.ASCENDING))
-        completed_tasks = list(db.tasks.find({"status": "Completed"}).sort("completed_at", pymongo.DESCENDING))
+        user_id = current_user.get_id()
+        pending_tasks = list(db.tasks.find({"status": "Not completed", "posted_by": user_id}).sort("deadline", pymongo.ASCENDING))
+        completed_tasks = list(db.tasks.find({"status": "Completed", "posted_by": user_id}).sort("completed_at", pymongo.DESCENDING))
         return render_template('display_all.html', pending_tasks = pending_tasks, completed_tasks = completed_tasks)
         #tasks = tasks means that it's passing data from the backend to the frontend html template
         #remember to modify html to use tasks
@@ -264,7 +266,7 @@ def create_app():
         title = request.args.get('title', '').strip()
         category = request.args.get('category', '').strip()
         
-        query = {}
+        query = {"posted_by": current_user.get_id()}
 
         if title or category:
             searched = True
