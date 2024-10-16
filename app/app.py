@@ -164,23 +164,54 @@ def create_app():
         else:
             return redirect("/")
 
-    @app.route('/delete_by_many', methods=['GET', 'POST'])
-    def delete_by_many():
-        message = ""
-        if request.method == 'POST':
-            category = request.form.get('category')
-            # Check how many tasks match the category
-            tasks_to_delete = db.tasks.count_documents({"category": category})
+    # @app.route('/delete_by_many', methods=['GET', 'POST'])
+    # def delete_by_many():
+    #     message = ""
+    #     if request.method == 'POST':
+    #         category = request.form.get('category')
+    #         # Check how many tasks match the category
+    #         tasks_to_delete = db.tasks.count_documents({"category": category})
             
-            if tasks_to_delete > 0:
-                # If there are matching tasks, delete them and set success message
-                db.tasks.delete_many({"category": category})
-                message = f"Tasks in the {category} category were successfully deleted."
-            else:
-                # If no matching tasks, set a different message
-                message = f"No tasks found in the {category} category to delete."
+    #         if tasks_to_delete > 0:
+    #             # If there are matching tasks, delete them and set success message
+    #             db.tasks.delete_many({"category": category})
+    #             message = f"Tasks in the {category} category were successfully deleted."
+    #         else:
+    #             # If no matching tasks, set a different message
+    #             message = f"No tasks found in the {category} category to delete."
         
-        return render_template('delete_by_many.html', message=message)
+    #     return render_template('delete_by_many.html', message=message)
+
+
+    @app.route('/delete_selected', methods=['POST'])
+    def delete_selected_tasks():
+        task_ids = request.form.getlist('task_ids')  # Get the selected task IDs from the form
+
+        title = request.form.get('title', '').strip()  # Single title
+        category = request.form.get('category', '').strip()  # Single category
+
+        if task_ids:
+            # Convert string IDs to ObjectId and delete the selected tasks
+            db.tasks.delete_many({"_id": {"$in": [ObjectId(task_id) for task_id in task_ids]}})
+            flash(f"Deleted {len(task_ids)} task(s) successfully.")
+        else:
+            flash("No tasks selected for deletion.")
+
+
+        query = {}
+        if title:
+            query["title"] = {"$regex": title, "$options": "i"}  # Case-insensitive search
+        if category:
+            query["category"] = category
+
+        # Fetch the remaining tasks after deletion
+        tasks = list(db.tasks.find(query))
+
+        # Render the updated task list with the search parameters
+        return render_template('search.html', tasks=tasks, title=title, category=category, searched=True)
+
+        # return redirect(url_for('search_task'))
+
     
     # Route for deleting a task
     @app.route("/complete/<task_id>")
@@ -214,22 +245,32 @@ def create_app():
     @app.route('/search', methods=['GET', 'POST'])
     def search_task():
         tasks = []
-        if request.method == 'POST':
-            title = request.form.get('title')
-            category = request.form.get('category')
+        searched = False
 
-            query = {}
-                #this builds the critria we need to use for .find
-                #regex means regular expression
-                #options: i  is a flag that will make the search case-insensitive
-            if title:
-                query["title"] = {"$regex" : title, "$options": "i"}
-            if category:
-                query["category"] = category
-            
+        if request.method == 'POST':
+            # title = request.form.get('title')
+            # category = request.form.get('category')
+            title = request.form.get('title', '').strip()
+            category = request.form.get('category', '').strip()
+
+            return redirect(url_for('search_task', title=title, category=category))
+
+        title = request.args.get('title', '').strip()
+        category = request.args.get('category', '').strip()
+        
+        query = {}
+
+        if title or category:
+            searched = True
+            query["title"] = {"$regex" : title, "$options": "i"}
+        if category:
+            query["category"] = category
+        
+        if query:
             tasks = list(db.tasks.find(query))
 
-        return render_template('search.html', tasks = tasks) #remember to modify html to use tasks
+        return render_template('search.html', tasks=tasks, title=title, category=category, searched = searched)
+        # return render_template('search.html', tasks = tasks) #remember to modify html to use tasks
     return app
 
 if __name__ == '__main__':

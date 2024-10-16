@@ -105,29 +105,32 @@
     </form>
 
      <hr>
-     
-     <h2>Search Results</h2>
-     <ul>
-         {% if tasks %}
-             {% for task in tasks %}
-                 <li>
-                     <div class="task-title">{{ task.title }} - {{ task.category }}</div>
-                     <div class="task-details">{{ task.description }}</div>
-                     <div class="task-details">
-                         <strong>Posted on:</strong> {{ task.created_at }} |
-                         <strong>Deadline:</strong> {{ task.deadline }}
-                     </div>
-                     <nav class="controls">
-                         <a href="{{ url_for('edit_task', task_id=task._id) }}">Edit</a> |
-                         <a href="{{ url_for('delete_task', task_id=task._id) }}">Delete</a> |
-                         <a href="{{ url_for('complete_task', task_id=task._id) }}">Complete</a>
-                     </nav>
-                 </li>
-             {% endfor %}
-         {% else %}
-             <li style="text-align: center;">No tasks found matching your search criteria.</li>
-         {% endif %}
-     </ul>
+
+    {% if tasks %}
+    <form method="POST" action="/delete_selected">
+
+        <input type="hidden" name="title" value="{{ title }}">
+        <input type="hidden" name="category" value="{{ category }}">
+
+        <ul>
+            {% for task in tasks %}
+            <li>
+                <input type="checkbox" name="task_ids" value="{{ task._id }}">
+                <div class="task-title">{{ task.title }} - {{ task.category }}</div>
+                <div class="task-details">{{ task.description }}</div>
+                <div class="task-details">
+                    <strong>Posted on:</strong> {{ task.created_at }} |
+                    <strong>Deadline:</strong> {{ task.deadline }}
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        <button type="submit">Delete Selected</button>
+    </form>
+    {% elif searched %}
+        <p>No tasks found matching your search criteria.</p>
+    {% endif %}
+
  
 </body>
 </html>
