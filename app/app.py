@@ -50,10 +50,16 @@ def create_app():
         if request.method == 'POST':
             username = request.form['username']
             password = request.form['password']
+            repassword = request.form['repassword']
+            if password != repassword:
+                flash("Passwords do not match.")
+                return redirect(url_for('register'))
+            
             hashed_password = generate_password_hash(password)
             if db.users.find_one({"username": username}):
                 flash("Username already exists.")
                 return redirect(url_for('register'))
+            
 
             db.users.insert_one({"username": username, "password": hashed_password})
             flash("Registration successful. Please log in.")
@@ -67,7 +73,6 @@ def create_app():
         if request.method == 'POST':
             username = request.form['username']
             password = request.form['password']
-
             user_data = db.users.find_one({"username": username})
 
             if user_data and check_password_hash(user_data['password'], password):
@@ -93,7 +98,12 @@ def create_app():
     @app.route('/')
     @login_required
     def index():
-        current_tasks = list(db.tasks.find({"status": "Not completed"}).sort("created_at", pymongo.DESCENDING))
+        user_id = current_user.get_id()
+        current_tasks = list(db.tasks.find({
+            "posted_by": user_id,  # Make sure tasks have a user_id field associated with them
+            "status": "Not completed"
+            }).sort("created_at", pymongo.DESCENDING))
+    
         return render_template('index.html', tasks=current_tasks)
 
     # Route for adding a task
@@ -104,15 +114,15 @@ def create_app():
             category = request.form.get('category')
             description = request.form["description"]
             deadline = request.form["deadline"]
-
+            user_id = current_user.get_id()
             task = {
                 "title": title,
                 "category": category,
                 "description": description,
                 "created_at": datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M'),
                 "deadline": deadline,
-                "status" : "Not completed"
-
+                "status" : "Not completed",
+                "posted_by": user_id
             }
             
             db.tasks.insert_one(task)
