@@ -98,7 +98,12 @@ def create_app():
     @app.route('/')
     @login_required
     def index():
-        current_tasks = list(db.tasks.find({"status": "Not completed"}).sort("created_at", pymongo.DESCENDING))
+        user_id = current_user.get_id()
+        current_tasks = list(db.tasks.find({
+            "user_id": user_id,  # Make sure tasks have a user_id field associated with them
+            "status": "Not completed"
+            }).sort("created_at", pymongo.DESCENDING))
+    
         return render_template('index.html', tasks=current_tasks)
 
     # Route for adding a task
