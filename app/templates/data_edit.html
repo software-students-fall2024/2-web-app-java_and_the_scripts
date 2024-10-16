@@ -1,180 +1,3 @@
-<!-- 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Task</title>
-    <style>
-        /* Task section styling */
-        .task-section {
-            width: 80%;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h2 {
-            font-size: 1.6em;
-            margin-bottom: 20px;
-            color: #333;
-            text-align: center;
-        }
-
-        nav {
-            background-color: #f4f4f4;
-            padding: 10px;
-            text-align: center;
-        }
-
-        nav a {
-            display: inline-block;
-            padding: 8px 10px;
-            margin: 4px;
-            text-decoration: none;
-            color: #333;
-            background-color: #fff;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            font-size: 14px;
-        }
-
-        nav a:hover {
-            background-color: #e0e0e0;
-        }
-
-        form {
-            max-width: 600px;
-            margin: auto;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-size: 1em;
-            color: #333;
-        }
-
-        input[type="text"],
-        input[type="date"],
-        select,
-        textarea {
-            width: 80%;
-            padding: 10px;
-            margin: auto;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 1em;
-        }
-
-        textarea {
-            resize: vertical;
-        }
-
-        button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1em;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 0.9em;
-            color: #777;
-        }
-
-        /* Responsive Design */
-        @media only screen and (max-width: 600px) {
-            .task-section {
-                width: 95%;
-            }
-
-            input[type="text"],
-            input[type="date"],
-            select,
-            textarea {
-                width: 100%;
-            }
-
-            button {
-                width: 100%;
-            }
-        }
-    </style>
-</head>
-<body>
-
-<header>
-    <h2>Task Manager</h2>
-    <nav>
-        <a href="{{ url_for('index') }}">Home</a>
-        <a href="{{ url_for('add_task') }}">Add Task</a>
-        <a href="{{ url_for('display_tasks') }}">All Tasks</a>
-        <a href="{{ url_for('search_task') }}">Search</a>
-        <a href="{{ url_for('logout') }}">Log Out</a>
-    </nav>
-</header>
-
-<div class="task-section">
-    <h2>Edit Task</h2>
-
-    <form method="POST">
-        <div class="form-group">
-            <label for="title">Task Title:</label>
-            <input type="text" id="title" name="title" value="{{ task['title'] }}" required>
-        </div>
-
-        <div class="form-group">
-            <label for="category">Task Category:</label>
-            <select id="category" name="category" required>
-                <option value="Cleaning" {% if task['category'] == 'Cleaning' %}selected{% endif %}>Cleaning</option>
-                <option value="Laundry" {% if task['category'] == 'Laundry' %}selected{% endif %}>Laundry</option>
-                <option value="Grocery" {% if task['category'] == 'Grocery' %}selected{% endif %}>Grocery</option>
-                <option value="Work" {% if task['category'] == 'Work' %}selected{% endif %}>Work</option>
-                <option value="Personal" {% if task['category'] == 'Personal' %}selected{% endif %}>Personal</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="description">Description:</label>
-            <textarea id="description" name="description" rows="3" required>{{ task['description'] }}</textarea>
-        </div>
-
-        <div class="form-group">
-            <label for="deadline">Deadline:</label>
-            <input type="date" id="deadline" name="deadline" value="{{ task['deadline'] }}" required>
-        </div>
-
-        <div class="form-group">
-            <button type="submit">Edit Task</button>
-        </div>
-    </form>
-</div>
-
-<footer>
-    <p>&copy; Java and the Scripts, 2024</p>
-</footer>
-
-</body>
-</html>
- -->
-
 
  <!DOCTYPE html>
 <html lang="en">
@@ -210,15 +33,6 @@
         h2 {
             text-align: center;
             font-size: 24px;
-        }
-
-        .task-section {
-            width: 80%;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         form {
@@ -279,7 +93,7 @@
 <body>
 
 <header>
-    <h2>Task Manager</h2>
+    <h2 >Task Manager</h2>
     <nav>
         <a href="{{ url_for('index') }}">Home</a>
         <a href="{{ url_for('add_task') }}">Add Task</a>
@@ -290,7 +104,7 @@
 </header>
 
 <div class="task-section">
-    <h2>Edit Task</h2>
+    <h2 style="font-size: 20px;">Edit Task</h2>
 
     <form method="POST">
         <div style="text-align: center; margin-bottom: 12px;">
