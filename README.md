@@ -34,15 +34,19 @@ Our mobile web app allows people to be more organized by keeping track of their 
 ## Install Python
 Install Python on your local machine.
 
-## Install Dependencies
-Install Flask and Pymongo on your local machine.
-```bash pip install Flask Pymongo
-```
-
 ## Clone the repository to your local machine
 ```bash 
 git clone https://github.com/software-students-fall2024/2-web-app-java_and_the_scripts.git
 ```
+
+## Install Requirements
+Install Flask and Pymongo, and other requirements on your local machine.
+```bash 
+pip3 install -r requirements.txt
+```
+
+## Install Docker
+Install Docker on your local machine.
 
 ## Navigate into cloned directory using cd
 Ensure that the current working directory is in the project.
@@ -73,5 +77,5 @@ Open a web browser and go to `http://localhost:11000` (or change `11000` to what
 
 [Task Board Sprint 1](https://github.com/orgs/software-students-fall2024/projects/25)
 [Task Board Sprint 2](https://github.com/orgs/software-students-fall2024/projects/88/views/1)
-
+ 
 
