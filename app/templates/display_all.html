@@ -5,23 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Log</title>
     <style>
-         nav {
-            background-color: #f4f4f4;
-            padding: 8px;
-            text-align: center;
-        }
 
-        nav a {
-            display: inline-block;
-            padding: 8px 10px;
-            margin: 4px;
-            text-decoration: none;
-            color: #333;
-            background-color: #fff;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            font-size: 14px;
-        }
 
         nav a:hover {
             background-color: #e0e0e0;
@@ -186,12 +170,13 @@
 <body>
 
     <h2 style="text-align: center; font-size: 24px;">Task Manager</h2>
-    <nav>
-        <a href="{{ url_for('index') }}">Home</a>
-        <a href="{{ url_for('add_task') }}">Add</a>
-        <a href="{{ url_for('display_tasks') }}">All Tasks</a>
-        <a href="{{ url_for('search_task') }}">Search</a>
-        <a href="{{ url_for('logout') }}">Log Out</a>
+    <nav style="background-color: #f4f4f4; padding: 8px; text-align: center;">
+        <a href="{{ url_for('index') }}" style="display: inline-block; padding: 8px 10px; margin: 4px; text-decoration: none; color: #333; background-color: #fff; border-radius: 5px; border: 1px solid #ddd; font-size: 14px;">Home</a>
+        <a href="{{ url_for('add_task') }}" style="display: inline-block; padding: 8px 10px; margin: 4px; text-decoration: none; color: #333; background-color: #fff; border-radius: 5px; border: 1px solid #ddd; font-size: 14px;">Add</a>
+        <a href="{{ url_for('display_tasks') }}" style="display: inline-block; padding: 8px 10px; margin: 4px; text-decoration: none; color: #333; background-color: #fff; border-radius: 5px; border: 1px solid #ddd; font-size: 14px;">All Tasks</a>
+        <a href="{{ url_for('search_task') }}" style="display: inline-block; padding: 8px 10px; margin: 4px; text-decoration: none; color: #333; background-color: #fff; border-radius: 5px; border: 1px solid #ddd; font-size: 14px;">Search</a>
+
+        <a href="{{ url_for('logout') }}" style="display: inline-block; padding: 8px 10px; margin: 4px; text-decoration: none; color: #333; background-color: #fff; border-radius: 5px; border: 1px solid #ddd; font-size: 14px;">Log Out</a>
     </nav>
 
     <div class="task-section">
